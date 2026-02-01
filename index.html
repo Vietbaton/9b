@@ -550,8 +550,25 @@
 
         #wish-screen {
             display: none;
-            text-align: center;
-            padding: 50px 20px;
+            padding: 30px 20px;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #wish-screen.active {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .wish-container {
+            display: flex;
+            gap: 20px;
+            max-width: 1000px;
+            width: 100%;
+            align-items: stretch;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .wish-box {
@@ -561,9 +578,112 @@
             border-radius: 15px;
             border: 4px double var(--gold);
             font-family: 'Dancing Script';
+            font-size: 1.5rem;
+            flex: 1;
+            min-width: 300px;
+            max-width: 450px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            line-height: 1.6;
+        }
+
+        .lixi-button-container {
+            background: linear-gradient(135deg, #e60000, #ff4444);
+            border: 4px solid var(--gold);
+            border-radius: 15px;
+            padding: 40px 30px;
+            flex: 1;
+            min-width: 300px;
+            max-width: 450px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lixi-button-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        .lixi-button-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 40px rgba(212,175,55,0.5);
+        }
+
+        .lixi-icon-large {
+            font-size: 6rem;
+            animation: swing 2s ease-in-out infinite;
+        }
+
+        @keyframes swing {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        .lixi-button-text {
+            color: white;
             font-size: 1.8rem;
-            margin: 20px auto;
-            max-width: 600px;
+            font-weight: bold;
+            text-align: center;
+            font-family: 'Dancing Script';
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .back-button {
+            background: none;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            padding: 12px 30px;
+            border-radius: 25px;
+            margin-top: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .back-button:hover {
+            background: rgba(212,175,55,0.2);
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .wish-container {
+                flex-direction: column;
+            }
+            
+            .wish-box, .lixi-button-container {
+                max-width: 100%;
+                min-width: 100%;
+            }
+
+            .wish-box {
+                font-size: 1.3rem;
+                padding: 25px;
+            }
+
+            .lixi-icon-large {
+                font-size: 4rem;
+            }
+
+            .lixi-button-text {
+                font-size: 1.5rem;
+            }
         }
 
         .falling {
@@ -1224,14 +1344,6 @@
             transform: scale(0.95);
         }
 
-        /* LIXI BADGE ON USER CARD */
-        .lixi-badge {
-            margin-top: 5px;
-            font-size: 0.7rem;
-            color: #4CAF50;
-            font-weight: bold;
-        }
-
         @media (max-width: 768px) {
             .firework-btn {
                 bottom: 20px;
@@ -1539,9 +1651,15 @@
     </div>
 
     <div id="wish-screen">
-        <h2 style="color: var(--gold); font-family: 'Dancing Script'; font-size: 2.2rem;">Chúc Mừng Năm Mới!</h2>
-        <div class="wish-box" id="typing"></div>
-        <button onclick="location.reload()" style="background:none; border:1px solid var(--gold); color:var(--gold); padding:10px 25px; border-radius:25px; margin-top: 30px; cursor: pointer;">Về trang chủ</button>
+        <div class="wish-container">
+            <div class="wish-box" id="typing"></div>
+            
+            <div class="lixi-button-container" id="lixiButtonContainer" onclick="openLixiGame()" style="display: none;">
+                <div class="lixi-icon-large">🧧</div>
+                <div class="lixi-button-text">Lắc<br>Lì Xì<br>May Mắn!</div>
+            </div>
+        </div>
+        <button class="back-button" onclick="location.reload()">🏠 Về trang chủ</button>
     </div>
 
 
@@ -1575,19 +1693,19 @@
 
     <script>
         const members = [
-            { n: "Nông Hữu Hiệp", p: "10112011", w: "Chúc bạn năm mới thành công, luôn vui vẻ và hạnh phúc bên gia đình!", avatar: "https://ui-avatars.com/api/?name=Hiep&background=d4af37&color=8b0000&size=128", lixi: true },
+            { n: "Nông Hữu Hiệp", p: "10112011", w: "Chúc bạn năm mới thành công, luôn vui vẻ và hạnh phúc bên gia đình!", avatar: "https://ui-avatars.com/api/?name=Hiep&background=d4af37&color=8b0000&size=128", lixi: false },
             { n: "Dương Thị Khánh Linh", p: "23052011", w: "Năm mới dồi dào sức khỏe, công việc thuận lợi, gia đình ấm áp!", avatar: "https://ui-avatars.com/api/?name=Linh&background=d4af37&color=8b0000&size=128", lixi: true },
-            { n: "Hoàng Ngọc Anh", p: "07062011", w: "Chúc bạn luôn tươi trẻ, xinh đẹp và gặp nhiều may mắn trong năm mới!", avatar: "https://ui-avatars.com/api/?name=Anh&background=d4af37&color=8b0000&size=128", lixi: false },
+            { n: "Hoàng Ngọc Anh", p: "07062011", w: "Chúc bạn luôn tươi trẻ, xinh đẹp và gặp nhiều may mắn trong năm mới!", avatar: "https://ui-avatars.com/api/?name=Anh&background=d4af37&color=8b0000&size=128", lixi: true },
             { n: "Hoàng Thị Thu Hương", p: "15112011", w: "Năm Bính Ngọ thành công rực rỡ, sức khỏe dồi dào, hạnh phúc viên mãn!", avatar: "https://ui-avatars.com/api/?name=Huong&background=d4af37&color=8b0000&size=128", lixi: true },
             { n: "Dương Huyền Trang", p: "25022011", w: "Chúc bạn luôn vui vẻ, tràn đầy năng lượng và đạt được mọi mục tiêu!", avatar: "https://ui-avatars.com/api/?name=Trang&background=d4af37&color=8b0000&size=128", lixi: false },
             { n: "Lương Hoài Vân", p: "21052011", w: "Năm mới an khang thịnh vượng, vạn sự như ý, tài lộc đầy nhà!", avatar: "https://ui-avatars.com/api/?name=Van&background=d4af37&color=8b0000&size=128", lixi: true },
-            { n: "Lương Bình Minh", p: "04122011", w: "Chúc bạn sự nghiệp thăng tiến, gia đạo yên vui, phúc lộc song toàn!", avatar: "https://ui-avatars.com/api/?name=Minh&background=d4af37&color=8b0000&size=128", lixi: true },
+            { n: "Lương Bình Minh", p: "04122011", w: "Chúc bạn sự nghiệp thăng tiến, gia đạo yên vui, phúc lộc song toàn!", avatar: "https://ui-avatars.com/api/?name=Minh&background=d4af37&color=8b0000&size=128", lixi: false },
             { n: "Hoàng Hải Việt", p: "04012011", w: "Năm mới nhiều niềm vui, công việc hanh thông, gia đình hạnh phúc!", avatar: "https://ui-avatars.com/api/?name=Viet&background=d4af37&color=8b0000&size=128", lixi: false },
-            { n: "Vi Trần Bảo", p: "06092011", w: "Chúc bạn luôn khỏe mạnh, thành đạt và gặt hái nhiều thành công!", avatar: "https://ui-avatars.com/api/?name=Bao&background=d4af37&color=8b0000&size=128", lixi: true },
-            { n: "Lương Việt Anh", p: "03052011", w: "Năm Bính Ngọ tràn đầy năng lượng, vượng khí sinh tài, mọi sự hanh thông!", avatar: "https://ui-avatars.com/api/?name=VAnh&background=d4af37&color=8b0000&size=128", lixi: true },
+            { n: "Vi Trần Bảo", p: "06092011", w: "Chúc bạn luôn khỏe mạnh, thành đạt và gặt hái nhiều thành công!", avatar: "https://ui-avatars.com/api/?name=Bao&background=d4af37&color=8b0000&size=128", lixi: false },
+            { n: "Lương Việt Anh", p: "03052011", w: "Năm Bính Ngọ tràn đầy năng lượng, vượng khí sinh tài, mọi sự hanh thông!", avatar: "https://ui-avatars.com/api/?name=VAnh&background=d4af37&color=8b0000&size=128", lixi: false },
             { n: "Triệu Đức Hiệp", p: "01122011", w: "Chúc bạn sức khỏe dồi dào, công danh thịnh đạt, gia đạo êm ấm!", avatar: "https://ui-avatars.com/api/?name=DHiep&background=d4af37&color=8b0000&size=128", lixi: false },
             { n: "Nguyễn Anh Đức", p: "09122011", w: "Năm mới phát tài phát lộc, vạn sự như ý, gia đình hạnh phúc!", avatar: "https://ui-avatars.com/api/?name=Duc&background=d4af37&color=8b0000&size=128", lixi: true },
-            { n: "La Uyển Nhi", p: "28032011", w: "Chúc bạn luôn xinh đẹp, tươi trẻ và gặp nhiều điều tốt lành!", avatar: "https://ui-avatars.com/api/?name=Nhi&background=d4af37&color=8b0000&size=128", lixi: true },
+            { n: "La Uyển Nhi", p: "28032011", w: "Chúc bạn luôn xinh đẹp, tươi trẻ và gặp nhiều điều tốt lành!", avatar: "https://ui-avatars.com/api/?name=Nhi&background=d4af37&color=8b0000&size=128", lixi: false },
             { n: "Nông Bảo Ánh", p: "07092011", w: "Năm mới an khang, thịnh vượng, vạn sự hanh thông như ý nguyện!", avatar: "https://ui-avatars.com/api/?name=BAnh&background=d4af37&color=8b0000&size=128", lixi: false }
         ];
 
@@ -1962,13 +2080,7 @@
             div.appendChild(avatarContainer);
             div.appendChild(name);
             
-            // Add lixi badge if user has game
-            if (m.lixi) {
-                const badge = document.createElement('div');
-                badge.className = 'lixi-badge';
-                badge.innerText = '🧧 Có lì xì';
-                div.appendChild(badge);
-            }
+            // Badge removed - lixi is hidden surprise
             
             div.onclick = () => {
                 selected = m;
@@ -1991,7 +2103,9 @@
                         // SUCCESS
                         document.getElementById('password-modal').style.display = 'none';
                         document.getElementById('selection-screen').style.display = 'none';
-                        document.getElementById('wish-screen').style.display = 'flex';
+                        const wishScreen = document.getElementById('wish-screen');
+                        wishScreen.style.display = 'flex';
+                        wishScreen.classList.add('active');
                         
                         // Play firework sound
                         if (audioEnabled) {
@@ -2017,18 +2131,9 @@
                                 i++;
                                 setTimeout(type, 100);
                             } else {
-                                // Show lixi game button after typing if user has game
+                                // Show lixi button if user has game
                                 if (selected.lixi) {
-                                    const lixiBtn = document.createElement('button');
-                                    lixiBtn.onclick = openLixiGame;
-                                    lixiBtn.style.cssText = 'background: linear-gradient(135deg, #e60000, #ff4444); border: 3px solid var(--gold); color: white; padding: 15px 40px; border-radius: 50px; margin-top: 30px; cursor: pointer; font-size: 1.2rem; font-weight: bold; box-shadow: 0 10px 30px rgba(230,0,0,0.5); transition: all 0.3s;';
-                                    lixiBtn.innerText = '🧧 Lắc Lì Xì May Mắn! 🧧';
-                                    lixiBtn.onmouseenter = () => lixiBtn.style.transform = 'scale(1.05)';
-                                    lixiBtn.onmouseleave = () => lixiBtn.style.transform = 'scale(1)';
-                                    
-                                    const wishScreen = document.getElementById('wish-screen');
-                                    const homeBtn = wishScreen.querySelector('button:last-child');
-                                    wishScreen.insertBefore(lixiBtn, homeBtn);
+                                    document.getElementById('lixiButtonContainer').style.display = 'flex';
                                 }
                             }
                         }
