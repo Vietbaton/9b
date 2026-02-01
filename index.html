@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9B - Xuân Bính Ngọ 2026</title>
+    <title>9B - Xuân Bính Ngọ 2026 - Ultimate Edition ✨</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
@@ -977,7 +977,275 @@
             opacity: 0.7;
         }
     </style>
+
+        /* ==================== NEW ULTIMATE EFFECTS ==================== */
+        
+        /* ANIMATED GRADIENT BACKGROUND */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(45deg, 
+                rgba(139,0,0,0.3), rgba(43,0,0,0.5), 
+                rgba(139,0,0,0.3), rgba(43,0,0,0.5));
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            z-index: -2;
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* FLOATING PARTICLES */
+        .particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.6;
+            animation: particleFloat linear infinite;
+        }
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) translateX(100px) rotate(360deg); opacity: 0; }
+        }
+
+        /* 3D CARD HOVER EFFECT */
+        .user-card {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .user-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, transparent, rgba(212,175,55,0.3), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        .user-card:hover::before {
+            transform: translateX(100%);
+        }
+        .user-card:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(5deg) scale(1.05);
+            box-shadow: 0 20px 40px rgba(212,175,55,0.3), 0 0 30px rgba(212,175,55,0.2);
+            border-color: #ffd700;
+        }
+
+        /* SCROLL REVEAL ANIMATION */
+        .user-card {
+            opacity: 0;
+            transform: translateY(50px);
+            animation: revealCard 0.6s ease-out forwards;
+        }
+        @keyframes revealCard {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .user-card:nth-child(1) { animation-delay: 0.1s; }
+        .user-card:nth-child(2) { animation-delay: 0.15s; }
+        .user-card:nth-child(3) { animation-delay: 0.2s; }
+        .user-card:nth-child(4) { animation-delay: 0.25s; }
+        .user-card:nth-child(5) { animation-delay: 0.3s; }
+        .user-card:nth-child(6) { animation-delay: 0.35s; }
+        .user-card:nth-child(7) { animation-delay: 0.4s; }
+        .user-card:nth-child(8) { animation-delay: 0.45s; }
+        .user-card:nth-child(9) { animation-delay: 0.5s; }
+        .user-card:nth-child(10) { animation-delay: 0.55s; }
+        .user-card:nth-child(11) { animation-delay: 0.6s; }
+        .user-card:nth-child(12) { animation-delay: 0.65s; }
+        .user-card:nth-child(13) { animation-delay: 0.7s; }
+        .user-card:nth-child(14) { animation-delay: 0.75s; }
+
+        /* RIPPLE EFFECT */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            animation: rippleEffect 0.6s ease-out;
+            pointer-events: none;
+        }
+        @keyframes rippleEffect {
+            0% { width: 0; height: 0; opacity: 1; }
+            100% { width: 300px; height: 300px; opacity: 0; }
+        }
+
+        /* MOUSE TRAIL */
+        .trail {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            transition: all 0.5s;
+        }
+
+        /* SHIMMER TEXT EFFECT */
+        .shimmer-text {
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        @keyframes shimmer {
+            0%, 100% { text-shadow: 0 0 10px rgba(212,175,55,0.5); }
+            50% { text-shadow: 0 0 20px rgba(212,175,55,1), 0 0 30px rgba(212,175,55,0.7); }
+        }
+
+        /* COUNTDOWN FLIP ANIMATION */
+        .countdown-number {
+            animation: flipNumber 0.6s ease-in-out;
+        }
+        @keyframes flipNumber {
+            0%, 100% { transform: rotateX(0deg); }
+            50% { transform: rotateX(90deg); }
+        }
+
+        /* POLAROID 3D EFFECT */
+        .polaroid {
+            transition: all 0.4s;
+            transform: rotate(0deg);
+        }
+        .polaroid:hover {
+            transform: rotate(2deg) translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(212,175,55,0.4);
+        }
+        .polaroid:nth-child(even):hover {
+            transform: rotate(-2deg) translateY(-10px) scale(1.05);
+        }
+
+        /* LIXI GAME STYLES */
+        #lixi-game-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 10001;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .lixi-game-content {
+            background: linear-gradient(135deg, rgba(139,0,0,0.95), rgba(43,0,0,0.95));
+            border: 3px solid var(--gold);
+            border-radius: 20px;
+            padding: 40px 30px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            animation: modalBounceIn 0.5s ease-out;
+        }
+        @keyframes modalBounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .lixi-game-title {
+            font-family: 'Dancing Script';
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+        .lixi-envelope {
+            width: 200px;
+            height: 250px;
+            margin: 30px auto;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .lixi-envelope:hover {
+            transform: scale(1.1);
+        }
+        .lixi-envelope.shaking {
+            animation: shake 0.5s infinite;
+        }
+        .lixi-result {
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin: 20px 0;
+            min-height: 50px;
+            font-weight: bold;
+        }
+        .lixi-money {
+            font-size: 3rem;
+            color: #4CAF50;
+            font-weight: bold;
+            margin: 20px 0;
+            text-shadow: 0 0 20px rgba(76,175,80,0.5);
+        }
+        .shake-instruction {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+        .lixi-close-btn {
+            background: var(--gold);
+            color: var(--red);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+        .lixi-close-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(212,175,55,0.5);
+        }
+
+        /* FIREWORK BUTTON */
+        .firework-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff4d4d, #ff1493);
+            border: 3px solid var(--gold);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            z-index: 1000;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(255,77,77,0.5);
+        }
+        .firework-btn:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 0 10px 30px rgba(255,77,77,0.7);
+        }
+        .firework-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* LIXI BADGE ON USER CARD */
+        .lixi-badge {
+            margin-top: 5px;
+            font-size: 0.7rem;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .firework-btn {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
+<body>
 <body onmousemove="sparkle(event)" ontouchmove="sparkle(event.touches[0])">
 
     <!-- LOADING SCREEN -->
@@ -1075,7 +1343,7 @@
     <!-- LOVE PASSWORD MODAL -->
     <div id="love-password-modal">
         <div class="love-password-content">
-            <h2 class="love-password-title">💝 Phần Riêng Tư</h2>
+            <h2 class="love-password-title">💗 Khác</h2>
             <p class="love-password-subtitle">Nhập mật khẩu để xem nội dung đặc biệt</p>
             
             <input 
@@ -1121,7 +1389,7 @@
         <!-- TABS -->
         <div class="tabs-container">
             <button class="tab-button active" onclick="switchTab('9b')">🎓 Lớp 9B</button>
-            <button class="tab-button" onclick="switchTab('other')">💝 Khác</button>
+            <button class="tab-button" onclick="switchTab('other')">💗 Khác</button>
         </div>
 
         <!-- COUNTDOWN ĐỘNG -->
@@ -1155,7 +1423,7 @@
             </div>
             <div class="polaroid">
                 <img src="./9b2.jpg" onerror="this.src='https://picsum.photos/400/300?sig=2'" onload="this.classList.add('loaded')">
-                <p>Mùa hè năm ấy...</p>
+                <p>9B</p>
             </div>
         </div>
         </div>
@@ -1210,11 +1478,11 @@
                     </div>
                 </a>
 
-                <a href="mailto:huuviet2202@gmail.com" class="contact-item">
+                <a href="/cdn-cgi/l/email-protection#d9b1acacafb0bcadebebe9eb99beb4b8b0b5f7bab6b4" class="contact-item">
                     <div class="contact-icon">📧</div>
                     <div class="contact-info">
                         <div class="contact-label">Email</div>
-                        <div class="contact-value">huuviet2202@gmail.com</div>
+                        <div class="contact-value"><span class="__cf_email__" data-cfemail="f199848487989485c3c3c1c3b1969c90989ddf929e9c">[email&#160;protected]</span></div>
                     </div>
                 </a>
 
@@ -1277,22 +1545,51 @@
         <button onclick="location.reload()" style="background:none; border:1px solid var(--gold); color:var(--gold); padding:10px 25px; border-radius:25px; margin-top: 30px; cursor: pointer;">Về trang chủ</button>
     </div>
 
+
+    <!-- LIXI GAME MODAL -->
+    <div id="lixi-game-modal">
+        <div class="lixi-game-content">
+            <h2 class="lixi-game-title shimmer-text">🧧 Lắc Lì Xì May Mắn 🧧</h2>
+            <p class="shake-instruction">Lắc điện thoại hoặc click vào bao lì xì nhiều lần!</p>
+            
+            <div class="lixi-envelope" id="lixiEnvelope" onclick="shakeLixi()">
+                <svg viewBox="0 0 200 250" style="width: 100%; height: 100%;">
+                    <rect x="20" y="80" width="160" height="150" fill="#e60000" stroke="#8b0000" stroke-width="3"/>
+                    <polygon points="100,30 20,80 180,80" fill="#ff4444" stroke="#8b0000" stroke-width="3"/>
+                    <circle cx="100" cy="155" r="30" fill="#d4af37"/>
+                    <text x="100" y="170" font-size="30" text-anchor="middle" fill="#8b0000" font-weight="bold">福</text>
+                </svg>
+            </div>
+            
+            <div class="lixi-result" id="lixiResult"></div>
+            <div class="lixi-money" id="lixiMoney"></div>
+            
+            <button class="lixi-close-btn" onclick="closeLixiGame()">Đóng</button>
+        </div>
+    </div>
+
+    <!-- FIREWORK BUTTON -->
+    <div class="firework-btn" onclick="launchFirework()" title="Bắn pháo hoa!">
+        🎆
+    </div>
+
+
     <script>
         const members = [
-            { n: "Nông Hữu Hiệp", p: "10112011", w: "Chúc bạn năm mới thành công, luôn vui vẻ và hạnh phúc bên gia đình!", avatar: "https://ui-avatars.com/api/?name=Hiep&background=d4af37&color=8b0000&size=128" },
-            { n: "Dương Thị Khánh Linh", p: "23052011", w: "Năm mới dồi dào sức khỏe, công việc thuận lợi, gia đình ấm áp!", avatar: "https://ui-avatars.com/api/?name=Linh&background=d4af37&color=8b0000&size=128" },
-            { n: "Hoàng Ngọc Anh", p: "07062011", w: "Chúc bạn luôn tươi trẻ, xinh đẹp và gặp nhiều may mắn trong năm mới!", avatar: "https://ui-avatars.com/api/?name=Anh&background=d4af37&color=8b0000&size=128" },
-            { n: "Hoàng Thị Thu Hương", p: "15112011", w: "Năm Bính Ngọ thành công rực rỡ, sức khỏe dồi dào, hạnh phúc viên mãn!", avatar: "https://ui-avatars.com/api/?name=Huong&background=d4af37&color=8b0000&size=128" },
-            { n: "Dương Huyền Trang", p: "25022011", w: "Chúc bạn luôn vui vẻ, tràn đầy năng lượng và đạt được mọi mục tiêu!", avatar: "https://ui-avatars.com/api/?name=Trang&background=d4af37&color=8b0000&size=128" },
-            { n: "Lương Hoài Vân", p: "21052011", w: "Năm mới an khang thịnh vượng, vạn sự như ý, tài lộc đầy nhà!", avatar: "https://ui-avatars.com/api/?name=Van&background=d4af37&color=8b0000&size=128" },
-            { n: "Lương Bình Minh", p: "04122011", w: "Chúc bạn sự nghiệp thăng tiến, gia đạo yên vui, phúc lộc song toàn!", avatar: "https://ui-avatars.com/api/?name=Minh&background=d4af37&color=8b0000&size=128" },
-            { n: "Hoàng Hải Việt", p: "04012011", w: "Năm mới nhiều niềm vui, công việc hanh thông, gia đình hạnh phúc!", avatar: "https://ui-avatars.com/api/?name=Viet&background=d4af37&color=8b0000&size=128" },
-            { n: "Vi Trần Bảo", p: "06092011", w: "Chúc bạn luôn khỏe mạnh, thành đạt và gặt hái nhiều thành công!", avatar: "https://ui-avatars.com/api/?name=Bao&background=d4af37&color=8b0000&size=128" },
-            { n: "Lương Việt Anh", p: "03052011", w: "Năm Bính Ngọ tràn đầy năng lượng, vượng khí sinh tài, mọi sự hanh thông!", avatar: "https://ui-avatars.com/api/?name=VAnh&background=d4af37&color=8b0000&size=128" },
-            { n: "Triệu Đức Hiệp", p: "01122011", w: "Chúc bạn sức khỏe dồi dào, công danh thịnh đạt, gia đạo êm ấm!", avatar: "https://ui-avatars.com/api/?name=DHiep&background=d4af37&color=8b0000&size=128" },
-            { n: "Nguyễn Anh Đức", p: "09122011", w: "Năm mới phát tài phát lộc, vạn sự như ý, gia đình hạnh phúc!", avatar: "https://ui-avatars.com/api/?name=Duc&background=d4af37&color=8b0000&size=128" },
-            { n: "La Uyển Nhi", p: "28032011", w: "Chúc bạn luôn xinh đẹp, tươi trẻ và gặp nhiều điều tốt lành!", avatar: "https://ui-avatars.com/api/?name=Nhi&background=d4af37&color=8b0000&size=128" },
-            { n: "Nông Bảo Ánh", p: "07092011", w: "Năm mới an khang, thịnh vượng, vạn sự hanh thông như ý nguyện!", avatar: "https://ui-avatars.com/api/?name=BAnh&background=d4af37&color=8b0000&size=128" }
+            { n: "Nông Hữu Hiệp", p: "10112011", w: "Chúc bạn năm mới thành công, luôn vui vẻ và hạnh phúc bên gia đình!", avatar: "https://ui-avatars.com/api/?name=Hiep&background=d4af37&color=8b0000&size=128", lixi: true },
+            { n: "Dương Thị Khánh Linh", p: "23052011", w: "Năm mới dồi dào sức khỏe, công việc thuận lợi, gia đình ấm áp!", avatar: "https://ui-avatars.com/api/?name=Linh&background=d4af37&color=8b0000&size=128", lixi: true },
+            { n: "Hoàng Ngọc Anh", p: "07062011", w: "Chúc bạn luôn tươi trẻ, xinh đẹp và gặp nhiều may mắn trong năm mới!", avatar: "https://ui-avatars.com/api/?name=Anh&background=d4af37&color=8b0000&size=128", lixi: false },
+            { n: "Hoàng Thị Thu Hương", p: "15112011", w: "Năm Bính Ngọ thành công rực rỡ, sức khỏe dồi dào, hạnh phúc viên mãn!", avatar: "https://ui-avatars.com/api/?name=Huong&background=d4af37&color=8b0000&size=128", lixi: true },
+            { n: "Dương Huyền Trang", p: "25022011", w: "Chúc bạn luôn vui vẻ, tràn đầy năng lượng và đạt được mọi mục tiêu!", avatar: "https://ui-avatars.com/api/?name=Trang&background=d4af37&color=8b0000&size=128", lixi: false },
+            { n: "Lương Hoài Vân", p: "21052011", w: "Năm mới an khang thịnh vượng, vạn sự như ý, tài lộc đầy nhà!", avatar: "https://ui-avatars.com/api/?name=Van&background=d4af37&color=8b0000&size=128", lixi: true },
+            { n: "Lương Bình Minh", p: "04122011", w: "Chúc bạn sự nghiệp thăng tiến, gia đạo yên vui, phúc lộc song toàn!", avatar: "https://ui-avatars.com/api/?name=Minh&background=d4af37&color=8b0000&size=128", lixi: true },
+            { n: "Hoàng Hải Việt", p: "04012011", w: "Năm mới nhiều niềm vui, công việc hanh thông, gia đình hạnh phúc!", avatar: "https://ui-avatars.com/api/?name=Viet&background=d4af37&color=8b0000&size=128", lixi: false },
+            { n: "Vi Trần Bảo", p: "06092011", w: "Chúc bạn luôn khỏe mạnh, thành đạt và gặt hái nhiều thành công!", avatar: "https://ui-avatars.com/api/?name=Bao&background=d4af37&color=8b0000&size=128", lixi: true },
+            { n: "Lương Việt Anh", p: "03052011", w: "Năm Bính Ngọ tràn đầy năng lượng, vượng khí sinh tài, mọi sự hanh thông!", avatar: "https://ui-avatars.com/api/?name=VAnh&background=d4af37&color=8b0000&size=128", lixi: true },
+            { n: "Triệu Đức Hiệp", p: "01122011", w: "Chúc bạn sức khỏe dồi dào, công danh thịnh đạt, gia đạo êm ấm!", avatar: "https://ui-avatars.com/api/?name=DHiep&background=d4af37&color=8b0000&size=128", lixi: false },
+            { n: "Nguyễn Anh Đức", p: "09122011", w: "Năm mới phát tài phát lộc, vạn sự như ý, gia đình hạnh phúc!", avatar: "https://ui-avatars.com/api/?name=Duc&background=d4af37&color=8b0000&size=128", lixi: true },
+            { n: "La Uyển Nhi", p: "28032011", w: "Chúc bạn luôn xinh đẹp, tươi trẻ và gặp nhiều điều tốt lành!", avatar: "https://ui-avatars.com/api/?name=Nhi&background=d4af37&color=8b0000&size=128", lixi: true },
+            { n: "Nông Bảo Ánh", p: "07092011", w: "Năm mới an khang, thịnh vượng, vạn sự hanh thông như ý nguyện!", avatar: "https://ui-avatars.com/api/?name=BAnh&background=d4af37&color=8b0000&size=128", lixi: false }
         ];
 
         let selected = null;
@@ -1300,92 +1597,182 @@
         let audioEnabled = false;
         let isDarkMode = true;
         let loveUnlocked = false;
-        const LOVE_PASSWORD = "iloveyou"; // Thay đổi mật khẩu tại đây
+        const LOVE_PASSWORD = "30032010";
 
-        // TAB SWITCHING
-        function switchTab(tabName) {
-            if (tabName === 'other' && !loveUnlocked) {
-                // Show password modal
-                document.getElementById('love-password-modal').style.display = 'flex';
-                document.getElementById('lovePasswordInput').value = '';
-                document.getElementById('lovePasswordInput').focus();
+        // ============ NEW ULTIMATE FEATURES ============
+
+        // CREATE FLOATING PARTICLES
+        function createParticles() {
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                document.body.appendChild(particle);
+            }
+        }
+
+        // MOUSE TRAIL EFFECT
+        const trailEmojis = ['✨', '🌟', '💫', '⭐', '🎊', '🎉'];
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.8) {
+                const trail = document.createElement('div');
+                trail.className = 'trail';
+                trail.innerText = trailEmojis[Math.floor(Math.random() * trailEmojis.length)];
+                trail.style.left = e.clientX + 'px';
+                trail.style.top = e.clientY + 'px';
+                trail.style.fontSize = (Math.random() * 10 + 15) + 'px';
+                document.body.appendChild(trail);
+                
+                setTimeout(() => {
+                    trail.style.opacity = '1';
+                    trail.style.transform = 'translate(-50%, -50%) scale(1)';
+                }, 10);
+                
+                setTimeout(() => {
+                    trail.style.opacity = '0';
+                    trail.style.transform = 'translate(-50%, -100px) scale(0)';
+                }, 100);
+                
+                setTimeout(() => trail.remove(), 1000);
+            }
+        });
+
+        // RIPPLE EFFECT ON CLICK
+        document.addEventListener('click', (e) => {
+            const ripple = document.createElement('div');
+            ripple.className = 'ripple';
+            ripple.style.left = (e.clientX - 150) + 'px';
+            ripple.style.top = (e.clientY - 150) + 'px';
+            ripple.style.position = 'fixed';
+            document.body.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+        });
+
+        // LIXI GAME FUNCTIONS
+        let shakeCount = 0;
+        let lastShakeTime = 0;
+
+        function openLixiGame() {
+            if (!selected || !selected.lixi) {
+                showToast('error', 'Bạn không có quyền chơi game lì xì! 😢');
                 return;
             }
+            
+            document.getElementById('lixi-game-modal').style.display = 'flex';
+            shakeCount = 0;
+            document.getElementById('lixiResult').innerText = '';
+            document.getElementById('lixiMoney').innerText = '';
+            document.getElementById('lixiEnvelope').classList.remove('shaking');
+        }
 
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
+        function closeLixiGame() {
+            document.getElementById('lixi-game-modal').style.display = 'none';
+        }
 
-            // Remove active from all buttons
-            document.querySelectorAll('.tab-button').forEach(btn => {
-                btn.classList.remove('active');
-            });
-
-            // Show selected tab
-            if (tabName === '9b') {
-                document.getElementById('tab-9b').classList.add('active');
-                document.querySelectorAll('.tab-button')[0].classList.add('active');
-            } else if (tabName === 'other') {
-                document.getElementById('tab-other').classList.add('active');
-                document.querySelectorAll('.tab-button')[1].classList.add('active');
+        function shakeLixi() {
+            const now = Date.now();
+            if (now - lastShakeTime < 200) return;
+            lastShakeTime = now;
+            
+            shakeCount++;
+            const envelope = document.getElementById('lixiEnvelope');
+            envelope.classList.add('shaking');
+            
+            setTimeout(() => envelope.classList.remove('shaking'), 500);
+            
+            if (shakeCount >= 10) {
+                openLixiEnvelope();
             }
         }
 
-        // LOVE PASSWORD CHECK
-        function checkLovePassword() {
-            const input = document.getElementById('lovePasswordInput');
-            const password = input.value.trim();
+        function openLixiEnvelope() {
+            const amounts = [20000, 50000, 100000, 200000, 500000, 1000000];
+            const luckyMoney = amounts[Math.floor(Math.random() * amounts.length)];
+            
+            document.getElementById('lixiResult').innerText = '🎉 Chúc mừng bạn nhận được:';
+            document.getElementById('lixiMoney').innerText = luckyMoney.toLocaleString('vi-VN') + ' VNĐ';
+            
+            // Confetti
+            confetti({ 
+                particleCount: 200, 
+                spread: 100, 
+                origin: { y: 0.6 },
+                colors: ['#e60000', '#d4af37', '#ff4444']
+            });
+            
+            if (audioEnabled) {
+                document.getElementById('fireworkSound').play().catch(e => console.log(e));
+            }
+            
+            shakeCount = 0;
+        }
 
-            if (password === LOVE_PASSWORD) {
-                // Correct password
-                loveUnlocked = true;
-                document.getElementById('love-password-modal').style.display = 'none';
+        // DEVICE SHAKE DETECTION FOR MOBILE
+        if (window.DeviceMotionEvent) {
+            let lastX = 0, lastY = 0, lastZ = 0;
+            
+            window.addEventListener('devicemotion', (e) => {
+                const modal = document.getElementById('lixi-game-modal');
+                if (modal.style.display !== 'flex') return;
                 
-                // Switch to other tab
-                switchTab('other');
+                const acceleration = e.accelerationIncludingGravity;
+                const x = acceleration.x || 0;
+                const y = acceleration.y || 0;
+                const z = acceleration.z || 0;
                 
-                // Show success toast
-                const successToast = document.getElementById('successToast');
-                successToast.querySelector('span:last-child').innerText = 'Chào mừng em yêu! 💕';
-                successToast.style.top = '20px';
-                setTimeout(() => {
-                    successToast.style.top = '-100px';
-                    successToast.querySelector('span:last-child').innerText = 'Chúc mừng năm mới!';
-                }, 3000);
+                const change = Math.abs(x + y + z - lastX - lastY - lastZ);
+                
+                if (change > 30) {
+                    shakeLixi();
+                }
+                
+                lastX = x;
+                lastY = y;
+                lastZ = z;
+            });
+        }
 
-                // Confetti
-                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#ff1493', '#ff69b4', '#ffb6c1'] });
-            } else {
-                // Wrong password
-                const errorToast = document.getElementById('errorToast');
-                errorToast.querySelector('span:last-child').innerText = '❌ Sai mật khẩu rồi!';
-                errorToast.style.top = '20px';
-                
-                input.classList.add('shake');
-                setTimeout(() => {
-                    errorToast.style.top = '-100px';
-                    errorToast.querySelector('span:last-child').innerText = 'Sai mã rồi Việt ơi!';
-                    input.classList.remove('shake');
-                    input.value = '';
-                    input.focus();
-                }, 2000);
+        // INTERACTIVE FIREWORKS
+        function launchFirework() {
+            const count = Math.random() * 100 + 50;
+            confetti({
+                particleCount: count,
+                spread: 120,
+                origin: { x: Math.random(), y: Math.random() * 0.5 },
+                colors: ['#ff4d4d', '#d4af37', '#ffffff', '#ff1493', '#ffeb3b']
+            });
+            
+            if (audioEnabled) {
+                const sound = document.getElementById('fireworkSound');
+                sound.currentTime = 0;
+                sound.play().catch(e => console.log(e));
             }
         }
 
-        function closeLovePassword() {
-            document.getElementById('love-password-modal').style.display = 'none';
-            // Make sure 9B tab is active
-            switchTab('9b');
+        // SHOW TOAST HELPER
+        function showToast(type, message) {
+            const toast = document.getElementById(type === 'error' ? 'errorToast' : 'successToast');
+            const textSpan = toast.querySelector('span:last-child');
+            const originalText = textSpan.innerText;
+            textSpan.innerText = message;
+            toast.style.top = '20px';
+            setTimeout(() => {
+                toast.style.top = '-100px';
+                setTimeout(() => textSpan.innerText = originalText, 500);
+            }, 3000);
         }
+
+        // ============ ORIGINAL FUNCTIONS (ENHANCED) ============
 
         // LOADING SCREEN
         window.addEventListener('load', () => {
+            createParticles();
             setTimeout(() => {
                 document.getElementById('loading-screen').style.opacity = '0';
                 setTimeout(() => {
                     document.getElementById('loading-screen').style.display = 'none';
-                    // Show guide modal after loading
                     document.getElementById('guide-modal').style.display = 'flex';
                 }, 500);
             }, 2000);
@@ -1456,17 +1843,15 @@
         }
 
         // PARALLAX SCROLL
-        let lastScroll = 0;
         window.addEventListener('scroll', () => {
             const scroll = window.pageYOffset;
             const lanterns = document.querySelectorAll('.lantern-svg');
-            lanterns.forEach((lantern, i) => {
+            lanterns.forEach((lantern) => {
                 lantern.style.transform = `translateY(${scroll * 0.3}px)`;
             });
-            lastScroll = scroll;
         });
 
-        // RENDER USER CARDS
+        // RENDER USER CARDS WITH LIXI BADGE
         const grid = document.getElementById('grid');
         members.forEach(m => {
             const div = document.createElement('div');
@@ -1495,6 +1880,14 @@
             div.appendChild(avatarContainer);
             div.appendChild(name);
             
+            // Add lixi badge if user has game
+            if (m.lixi) {
+                const badge = document.createElement('div');
+                badge.className = 'lixi-badge';
+                badge.innerText = '🧧 Có lì xì';
+                div.appendChild(badge);
+            }
+            
             div.onclick = () => {
                 selected = m;
                 document.getElementById('targetName').innerText = m.n;
@@ -1516,7 +1909,7 @@
                         // SUCCESS
                         document.getElementById('password-modal').style.display = 'none';
                         document.getElementById('selection-screen').style.display = 'none';
-                        document.getElementById('wish-screen').style.display = 'block';
+                        document.getElementById('wish-screen').style.display = 'flex';
                         
                         // Play firework sound
                         if (audioEnabled) {
@@ -1529,28 +1922,41 @@
                         setTimeout(() => confetti({ particleCount: 120, spread: 90, origin: { y: 0.7 } }), 600);
                         
                         // Success toast
-                        const successToast = document.getElementById('successToast');
-                        successToast.style.top = '20px';
-                        setTimeout(() => successToast.style.top = '-100px', 3000);
+                        showToast('success', 'Chúc mừng năm mới! 🎉');
                         
                         // Type effect
                         let i = 0;
+                        const wishText = selected.w;
+                        const typingElement = document.getElementById('typing');
+                        typingElement.innerHTML = '';
                         function type() {
-                            if (i < selected.w.length) {
-                                document.getElementById('typing').innerHTML += selected.w.charAt(i);
+                            if (i < wishText.length) {
+                                typingElement.innerHTML += wishText.charAt(i);
                                 i++;
                                 setTimeout(type, 100);
+                            } else {
+                                // Show lixi game button after typing if user has game
+                                if (selected.lixi) {
+                                    const lixiBtn = document.createElement('button');
+                                    lixiBtn.onclick = openLixiGame;
+                                    lixiBtn.style.cssText = 'background: linear-gradient(135deg, #e60000, #ff4444); border: 3px solid var(--gold); color: white; padding: 15px 40px; border-radius: 50px; margin-top: 30px; cursor: pointer; font-size: 1.2rem; font-weight: bold; box-shadow: 0 10px 30px rgba(230,0,0,0.5); transition: all 0.3s;';
+                                    lixiBtn.innerText = '🧧 Lắc Lì Xì May Mắn! 🧧';
+                                    lixiBtn.onmouseenter = () => lixiBtn.style.transform = 'scale(1.05)';
+                                    lixiBtn.onmouseleave = () => lixiBtn.style.transform = 'scale(1)';
+                                    
+                                    const wishScreen = document.getElementById('wish-screen');
+                                    const homeBtn = wishScreen.querySelector('button:last-child');
+                                    wishScreen.insertBefore(lixiBtn, homeBtn);
+                                }
                             }
                         }
                         type();
                     } else {
                         // ERROR
-                        const errorToast = document.getElementById('errorToast');
-                        errorToast.style.top = '20px';
+                        showToast('error', 'Sai mã rồi! 😢');
                         document.getElementById('otpBox').classList.add('shake');
                         
                         setTimeout(() => {
-                            errorToast.style.top = '-100px';
                             document.getElementById('otpBox').classList.remove('shake');
                             inputs.forEach(i => i.value = "");
                             inputs[0].focus();
@@ -1566,7 +1972,63 @@
             });
         });
 
-        // CLOCK & COUNTDOWN
+        // TAB SWITCHING
+        function switchTab(tabName) {
+            if (tabName === 'other' && !loveUnlocked) {
+                document.getElementById('love-password-modal').style.display = 'flex';
+                document.getElementById('lovePasswordInput').value = '';
+                document.getElementById('lovePasswordInput').focus();
+                return;
+            }
+
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            if (tabName === '9b') {
+                document.getElementById('tab-9b').classList.add('active');
+                document.querySelectorAll('.tab-button')[0].classList.add('active');
+            } else if (tabName === 'other') {
+                document.getElementById('tab-other').classList.add('active');
+                document.querySelectorAll('.tab-button')[1].classList.add('active');
+            }
+        }
+
+        // LOVE PASSWORD CHECK
+        function checkLovePassword() {
+            const input = document.getElementById('lovePasswordInput');
+            const password = input.value.trim();
+
+            if (password === LOVE_PASSWORD) {
+                loveUnlocked = true;
+                document.getElementById('love-password-modal').style.display = 'none';
+                switchTab('other');
+                
+                showToast('success', 'Chào mừng em yêu! 💕');
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#ff1493', '#ff69b4', '#ffb6c1'] });
+            } else {
+                showToast('error', '❌ Sai mật khẩu rồi!');
+                input.classList.add('shake');
+                setTimeout(() => {
+                    input.classList.remove('shake');
+                    input.value = '';
+                    input.focus();
+                }, 2000);
+            }
+        }
+
+        function closeLovePassword() {
+            document.getElementById('love-password-modal').style.display = 'none';
+            switchTab('9b');
+        }
+
+        // CLOCK & COUNTDOWN WITH FLIP ANIMATION
+        let prevDays, prevHours, prevMinutes, prevSeconds;
+
         function updateCountdown() {
             const now = new Date();
             const tet = new Date("2026-02-17T00:00:00");
@@ -1578,10 +2040,16 @@
                 const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((diff % (1000 * 60)) / 1000);
                 
-                document.getElementById('countDays').innerText = days;
-                document.getElementById('countHours').innerText = hours;
-                document.getElementById('countMinutes').innerText = minutes;
-                document.getElementById('countSeconds').innerText = seconds;
+                // Trigger flip animation on change
+                if (days !== prevDays) document.getElementById('countDays').innerText = days;
+                if (hours !== prevHours) document.getElementById('countHours').innerText = hours;
+                if (minutes !== prevMinutes) document.getElementById('countMinutes').innerText = minutes;
+                if (seconds !== prevSeconds) document.getElementById('countSeconds').innerText = seconds;
+                
+                prevDays = days;
+                prevHours = hours;
+                prevMinutes = minutes;
+                prevSeconds = seconds;
             }
         }
 
@@ -1597,12 +2065,12 @@
             e.innerText = ['🌸', '🧧', '🌼', '🎋', '🏮'][Math.floor(Math.random()*5)];
             e.style.left = Math.random()*100+'vw';
             e.style.fontSize = (Math.random()*20 + 20) + 'px';
-            e.style.animationDuration = Math.random()*3+4+'s';
+            e.style.animationDuration = (Math.random()*5 + 5) + 's';
             document.body.appendChild(e);
-            setTimeout(() => e.remove(), 7000);
-        }, 1000);
+            setTimeout(() => e.remove(), 10000);
+        }, 3000);
 
-        // Initial update
+        // Initial updates
         updateCountdown();
     </script>
 </body>
