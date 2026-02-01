@@ -1783,7 +1783,7 @@
             document.getElementById('guide-modal').style.display = 'none';
         }
 
-        // LOCATION
+        // LOCATION - Improved with fallback
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
@@ -1791,17 +1791,18 @@
                     fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=vi`)
                         .then(res => res.json())
                         .then(data => {
-                            document.getElementById('locationText').innerText = data.city || data.locality || 'Việt Nam';
+                            const city = data.city || data.locality || data.principalSubdivision || 'Việt Nam';
+                            document.getElementById('locationText').innerText = city;
                             document.getElementById('locationBadge').style.display = 'flex';
                         })
                         .catch(() => {
-                            document.getElementById('locationText').innerText = 'Việt Nam';
-                            document.getElementById('locationBadge').style.display = 'flex';
+                            // If API fails, just don't show location badge
+                            console.log('Location API failed');
                         });
                 },
-                () => {
-                    document.getElementById('locationText').innerText = 'Vị trí không xác định';
-                    document.getElementById('locationBadge').style.display = 'flex';
+                (error) => {
+                    // User denied or location unavailable - don't show badge
+                    console.log('Location permission denied or unavailable');
                 }
             );
         }
