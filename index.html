@@ -107,6 +107,88 @@
             to { width: 100%; }
         }
 
+        /* GUIDE MODAL */
+        #guide-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 99998;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .guide-content {
+            background: linear-gradient(135deg, rgba(139,0,0,0.9), rgba(43,0,0,0.95));
+            border: 3px solid var(--gold);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(212,175,55,0.5);
+        }
+
+        .guide-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .guide-header h2 {
+            color: var(--gold);
+            font-family: 'Dancing Script';
+            font-size: 2rem;
+            margin: 0 0 10px 0;
+        }
+
+        .guide-step {
+            background: rgba(255,255,255,0.05);
+            border-left: 4px solid var(--gold);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .guide-step-number {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--red);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .guide-close-btn {
+            background: var(--gold);
+            color: var(--red);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .guide-close-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(212,175,55,0.5);
+        }
+
         /* THEME TOGGLE */
         .theme-toggle {
             position: fixed;
@@ -512,7 +594,81 @@
             gap: 8px;
         }
 
-        /* CONTACT SECTION */
+        /* LOVE SECTION - CHÚC TẾT NGƯỜI YÊU */
+        .love-section {
+            background: linear-gradient(135deg, rgba(255,20,147,0.3), rgba(139,0,0,0.5));
+            border: 3px solid #ff1493;
+            border-radius: 20px;
+            padding: 40px 20px;
+            margin: 40px 15px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(255,20,147,0.3);
+        }
+
+        body.light-mode .love-section {
+            background: linear-gradient(135deg, rgba(255,192,203,0.6), rgba(255,182,193,0.4));
+        }
+
+        .love-section::before {
+            content: '💝';
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            font-size: 150px;
+            opacity: 0.1;
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .love-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .love-title {
+            font-family: 'Dancing Script';
+            font-size: 2.5rem;
+            color: #ff1493;
+            margin: 0 0 10px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .love-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        .love-message {
+            background: rgba(255,255,255,0.95);
+            color: #8b0000;
+            padding: 30px;
+            border-radius: 15px;
+            border: 3px double #ff1493;
+            font-family: 'Dancing Script';
+            font-size: 1.5rem;
+            line-height: 1.8;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 8px 20px rgba(255,20,147,0.3);
+        }
+
+        .love-hearts {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            font-size: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* CONTACT SECTION - Avatar Admin đẹp hơn */
         .contact-section {
             background: linear-gradient(135deg, rgba(139,0,0,0.3), rgba(43,0,0,0.5));
             border: 2px solid var(--gold);
@@ -548,20 +704,52 @@
         }
 
         .contact-avatar {
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
-            border: 4px solid var(--gold);
+            border: 5px solid var(--gold);
             margin: 0 auto 15px;
             display: block;
             object-fit: cover;
-            box-shadow: 0 10px 30px rgba(212,175,55,0.4);
-            animation: avatarPulse 3s ease-in-out infinite;
+            box-shadow: 
+                0 0 20px rgba(212,175,55,0.6),
+                0 0 40px rgba(212,175,55,0.4),
+                0 10px 30px rgba(0,0,0,0.5);
+            animation: avatarGlow 3s ease-in-out infinite;
+            position: relative;
+            background: linear-gradient(135deg, var(--gold), var(--red));
+            padding: 3px;
         }
 
-        @keyframes avatarPulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(212,175,55,0.4); }
-            50% { transform: scale(1.05); box-shadow: 0 15px 40px rgba(212,175,55,0.6); }
+        .contact-avatar::after {
+            content: '👑';
+            position: absolute;
+            top: -15px;
+            right: -5px;
+            font-size: 2rem;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
+            animation: crownFloat 2s ease-in-out infinite;
+        }
+
+        @keyframes avatarGlow {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 20px rgba(212,175,55,0.6),
+                    0 0 40px rgba(212,175,55,0.4),
+                    0 10px 30px rgba(0,0,0,0.5);
+            }
+            50% { 
+                box-shadow: 
+                    0 0 30px rgba(212,175,55,0.8),
+                    0 0 60px rgba(212,175,55,0.6),
+                    0 15px 40px rgba(0,0,0,0.6);
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes crownFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
         }
 
         .contact-name {
@@ -676,6 +864,47 @@
         </div>
     </div>
 
+    <!-- GUIDE MODAL -->
+    <div id="guide-modal">
+        <div class="guide-content">
+            <div class="guide-header">
+                <h2>🎊 Hướng Dẫn Sử Dụng 🎊</h2>
+                <p style="font-size: 0.9rem; opacity: 0.8;">Chào mừng bạn đến với website Tết 9B!</p>
+            </div>
+
+            <div class="guide-step">
+                <span class="guide-step-number">1</span>
+                <strong>Bật nhạc nền:</strong> Click vào biểu tượng 🔇 ở góc phải màn hình để nghe nhạc Tết!
+            </div>
+
+            <div class="guide-step">
+                <span class="guide-step-number">2</span>
+                <strong>Chọn tên bạn:</strong> Click vào card có tên của bạn trong danh sách bên dưới.
+            </div>
+
+            <div class="guide-step">
+                <span class="guide-step-number">3</span>
+                <strong>Nhập mã sinh nhật:</strong> Nhập 8 số ngày sinh của bạn (dạng DDMMYYYY). Ví dụ: 01012011
+            </div>
+
+            <div class="guide-step">
+                <span class="guide-step-number">4</span>
+                <strong>Xem lời chúc:</strong> Nếu đúng mật khẩu, bạn sẽ nhận được lời chúc Tết đặc biệt! 🎉
+            </div>
+
+            <div class="guide-step">
+                <span class="guide-step-number">5</span>
+                <strong>Khám phá thêm:</strong> Cuộn xuống để xem ảnh kỷ niệm, lời chúc người yêu và thông tin liên hệ Admin Việt!
+            </div>
+
+            <div style="background: rgba(255,215,0,0.1); padding: 15px; border-radius: 8px; margin-top: 15px; font-size: 0.85rem;">
+                <strong>💡 Mẹo:</strong> Bạn có thể chuyển đổi chế độ sáng/tối bằng nút 🌙 ở góc phải màn hình!
+            </div>
+
+            <button class="guide-close-btn" onclick="closeGuide()">Bắt Đầu Khám Phá! 🎊</button>
+        </div>
+    </div>
+
     <!-- AUDIO ELEMENTS -->
     <audio id="bgMusic" loop>
         <source src="./happynewyear.mp3" type="audio/mpeg">
@@ -770,12 +999,42 @@
             </div>
         </div>
 
+        <!-- LOVE SECTION - CHÚC TẾT NGƯỜI YÊU -->
+        <div class="love-section">
+            <div class="love-header">
+                <h2 class="love-title">Gửi Em Yêu Của Anh 💕</h2>
+                <p class="love-subtitle">Lời chúc Tết đặc biệt dành riêng cho người anh yêu thương nhất</p>
+            </div>
+            
+            <div class="love-message">
+                Em yêu ơi,<br><br>
+                
+                Năm mới đến, anh muốn gửi đến em những lời chúc ấm áp nhất. Cảm ơn em đã luôn ở bên anh, là nguồn động lực và niềm vui trong cuộc sống của anh.<br><br>
+                
+                Chúc em năm Bính Ngọ 2026:<br>
+                💖 Luôn tươi cười, xinh đẹp và hạnh phúc<br>
+                🌟 Công việc thuận lợi, thành công rực rỡ<br>
+                🏠 Gia đình luôn ấm áp, sum vầy<br>
+                💕 Chúng mình mãi bên nhau, yêu thương nhau nhiều hơn mỗi ngày<br><br>
+                
+                Anh yêu em rất nhiều! ❤️
+            </div>
+            
+            <div class="love-hearts">
+                <span>💖</span>
+                <span>💝</span>
+                <span>💕</span>
+                <span>💗</span>
+                <span>💓</span>
+            </div>
+        </div>
+
         <!-- CONTACT SECTION -->
         <div class="contact-section">
             <div class="contact-header">
                 <img src="./avatar-viet.jpg" alt="Hoàng Hữu Việt" class="contact-avatar" onerror="this.src='https://i.ibb.co/r5KqG3p/avatar-viet.jpg'">
                 <h3 class="contact-name">Hoàng Hữu Việt</h3>
-                <p class="contact-title">Web Developer & Admin 9B</p>
+                <p class="contact-title">👨‍💻 Web Developer & Admin 9B</p>
                 <p class="contact-subtitle">Kết nối với tôi qua các kênh sau</p>
             </div>
 
@@ -884,9 +1143,16 @@
                 document.getElementById('loading-screen').style.opacity = '0';
                 setTimeout(() => {
                     document.getElementById('loading-screen').style.display = 'none';
+                    // Show guide modal after loading
+                    document.getElementById('guide-modal').style.display = 'flex';
                 }, 500);
             }, 2000);
         });
+
+        // CLOSE GUIDE
+        function closeGuide() {
+            document.getElementById('guide-modal').style.display = 'none';
+        }
 
         // LOCATION
         if (navigator.geolocation) {
