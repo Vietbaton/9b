@@ -594,6 +594,137 @@
             gap: 8px;
         }
 
+        /* TAB SYSTEM */
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 30px 20px 10px 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .tab-button:hover {
+            background: rgba(212,175,55,0.2);
+            transform: translateY(-2px);
+        }
+
+        .tab-button.active {
+            background: var(--gold);
+            color: var(--red);
+            box-shadow: 0 5px 15px rgba(212,175,55,0.5);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* LOVE PASSWORD MODAL */
+        #love-password-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .love-password-content {
+            background: linear-gradient(135deg, rgba(255,20,147,0.3), rgba(139,0,0,0.5));
+            border: 3px solid #ff1493;
+            border-radius: 20px;
+            padding: 40px 30px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .love-password-title {
+            font-family: 'Dancing Script';
+            font-size: 2rem;
+            color: #ff1493;
+            margin-bottom: 10px;
+        }
+
+        .love-password-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 25px;
+        }
+
+        .love-password-input {
+            width: 100%;
+            max-width: 250px;
+            padding: 12px 20px;
+            border: 2px solid #ff1493;
+            border-radius: 25px;
+            background: rgba(255,255,255,0.1);
+            color: #ff1493;
+            font-size: 1rem;
+            text-align: center;
+            outline: none;
+            margin-bottom: 20px;
+        }
+
+        .love-password-input::placeholder {
+            color: rgba(255,20,147,0.5);
+        }
+
+        .love-password-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .love-btn {
+            padding: 10px 25px;
+            border-radius: 25px;
+            border: 2px solid #ff1493;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .love-btn-primary {
+            background: #ff1493;
+            color: white;
+        }
+
+        .love-btn-primary:hover {
+            background: #ff69b4;
+            transform: scale(1.05);
+        }
+
+        .love-btn-secondary {
+            background: transparent;
+            color: #ff1493;
+        }
+
+        .love-btn-secondary:hover {
+            background: rgba(255,20,147,0.1);
+        }
+
         /* LOVE SECTION - CHÚC TẾT NGƯỜI YÊU */
         .love-section {
             background: linear-gradient(135deg, rgba(255,20,147,0.3), rgba(139,0,0,0.5));
@@ -941,6 +1072,27 @@
         <span>Chúc mừng năm mới!</span>
     </div>
 
+    <!-- LOVE PASSWORD MODAL -->
+    <div id="love-password-modal">
+        <div class="love-password-content">
+            <h2 class="love-password-title">💝 Phần Riêng Tư</h2>
+            <p class="love-password-subtitle">Nhập mật khẩu để xem nội dung đặc biệt</p>
+            
+            <input 
+                type="password" 
+                id="lovePasswordInput" 
+                class="love-password-input" 
+                placeholder="Nhập mật khẩu..."
+                onkeypress="if(event.key==='Enter') checkLovePassword()"
+            >
+            
+            <div class="love-password-buttons">
+                <button class="love-btn love-btn-primary" onclick="checkLovePassword()">Xác Nhận 💕</button>
+                <button class="love-btn love-btn-secondary" onclick="closeLovePassword()">Quay Lại</button>
+            </div>
+        </div>
+    </div>
+
     <!-- LANTERNS -->
     <svg class="lantern-svg lantern-left" viewBox="0 0 100 120">
         <rect x="45" y="0" width="10" height="20" fill="#d4af37"/>
@@ -966,6 +1118,12 @@
         <h1 style="font-family: 'Dancing Script'; text-align: center; color: var(--gold); font-size: 2.8rem; margin: 20px 0 0 0;">Xuân Bính Ngọ 2026</h1>
         <p style="text-align: center; font-size: 0.75rem; letter-spacing: 2px; opacity: 0.8;">LỚP 9B NIÊN KHÓA 2011</p>
 
+        <!-- TABS -->
+        <div class="tabs-container">
+            <button class="tab-button active" onclick="switchTab('9b')">🎓 Lớp 9B</button>
+            <button class="tab-button" onclick="switchTab('other')">💝 Khác</button>
+        </div>
+
         <!-- COUNTDOWN ĐỘNG -->
         <div id="countdown-container">
             <div class="countdown-box">
@@ -986,9 +1144,11 @@
             </div>
         </div>
 
-        <div class="user-grid" id="grid"></div>
+        <!-- TAB 9B CONTENT -->
+        <div id="tab-9b" class="tab-content active">
+            <div class="user-grid" id="grid"></div>
 
-        <div class="photo-section">
+            <div class="photo-section">
             <div class="polaroid">
                 <img src="./9b1.jpg" onerror="this.src='https://picsum.photos/400/300?sig=1'" onload="this.classList.add('loaded')">
                 <p>Tập thể lớp 9B</p>
@@ -998,34 +1158,37 @@
                 <p>Mùa hè năm ấy...</p>
             </div>
         </div>
+        </div>
 
-        <!-- LOVE SECTION - CHÚC TẾT NGƯỜI YÊU -->
-        <div class="love-section">
-            <div class="love-header">
-                <h2 class="love-title">Gửi Em Yêu Của Anh 💕</h2>
-                <p class="love-subtitle">Lời chúc Tết đặc biệt dành riêng cho người anh yêu thương nhất</p>
-            </div>
-            
-            <div class="love-message">
-                Em yêu ơi,<br><br>
+        <!-- TAB KHÁC (OTHER) - LOVE SECTION -->
+        <div id="tab-other" class="tab-content">
+            <div class="love-section">
+                <div class="love-header">
+                    <h2 class="love-title">Gửi Em Yêu Của Anh 💕</h2>
+                    <p class="love-subtitle">Lời chúc Tết đặc biệt dành riêng cho người anh yêu thương nhất</p>
+                </div>
                 
-                Năm mới đến, anh muốn gửi đến em những lời chúc ấm áp nhất. Cảm ơn em đã luôn ở bên anh, là nguồn động lực và niềm vui trong cuộc sống của anh.<br><br>
+                <div class="love-message">
+                    Em yêu ơi,<br><br>
+                    
+                    Năm mới đến, anh muốn gửi đến em những lời chúc ấm áp nhất. Cảm ơn em đã luôn ở bên anh, là nguồn động lực và niềm vui trong cuộc sống của anh.<br><br>
+                    
+                    Chúc em năm Bính Ngọ 2026:<br>
+                    💖 Luôn tươi cười, xinh đẹp và hạnh phúc<br>
+                    🌟 Công việc thuận lợi, thành công rực rỡ<br>
+                    🏠 Gia đình luôn ấm áp, sum vầy<br>
+                    💕 Chúng mình mãi bên nhau, yêu thương nhau nhiều hơn mỗi ngày<br><br>
+                    
+                    Anh yêu em rất nhiều! ❤️
+                </div>
                 
-                Chúc em năm Bính Ngọ 2026:<br>
-                💖 Luôn tươi cười, xinh đẹp và hạnh phúc<br>
-                🌟 Công việc thuận lợi, thành công rực rỡ<br>
-                🏠 Gia đình luôn ấm áp, sum vầy<br>
-                💕 Chúng mình mãi bên nhau, yêu thương nhau nhiều hơn mỗi ngày<br><br>
-                
-                Anh yêu em rất nhiều! ❤️
-            </div>
-            
-            <div class="love-hearts">
-                <span>💖</span>
-                <span>💝</span>
-                <span>💕</span>
-                <span>💗</span>
-                <span>💓</span>
+                <div class="love-hearts">
+                    <span>💖</span>
+                    <span>💝</span>
+                    <span>💕</span>
+                    <span>💗</span>
+                    <span>💓</span>
+                </div>
             </div>
         </div>
 
@@ -1136,6 +1299,85 @@
         const inputs = document.querySelectorAll('.otp-input');
         let audioEnabled = false;
         let isDarkMode = true;
+        let loveUnlocked = false;
+        const LOVE_PASSWORD = "iloveyou"; // Thay đổi mật khẩu tại đây
+
+        // TAB SWITCHING
+        function switchTab(tabName) {
+            if (tabName === 'other' && !loveUnlocked) {
+                // Show password modal
+                document.getElementById('love-password-modal').style.display = 'flex';
+                document.getElementById('lovePasswordInput').value = '';
+                document.getElementById('lovePasswordInput').focus();
+                return;
+            }
+
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Remove active from all buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            if (tabName === '9b') {
+                document.getElementById('tab-9b').classList.add('active');
+                document.querySelectorAll('.tab-button')[0].classList.add('active');
+            } else if (tabName === 'other') {
+                document.getElementById('tab-other').classList.add('active');
+                document.querySelectorAll('.tab-button')[1].classList.add('active');
+            }
+        }
+
+        // LOVE PASSWORD CHECK
+        function checkLovePassword() {
+            const input = document.getElementById('lovePasswordInput');
+            const password = input.value.trim();
+
+            if (password === LOVE_PASSWORD) {
+                // Correct password
+                loveUnlocked = true;
+                document.getElementById('love-password-modal').style.display = 'none';
+                
+                // Switch to other tab
+                switchTab('other');
+                
+                // Show success toast
+                const successToast = document.getElementById('successToast');
+                successToast.querySelector('span:last-child').innerText = 'Chào mừng em yêu! 💕';
+                successToast.style.top = '20px';
+                setTimeout(() => {
+                    successToast.style.top = '-100px';
+                    successToast.querySelector('span:last-child').innerText = 'Chúc mừng năm mới!';
+                }, 3000);
+
+                // Confetti
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#ff1493', '#ff69b4', '#ffb6c1'] });
+            } else {
+                // Wrong password
+                const errorToast = document.getElementById('errorToast');
+                errorToast.querySelector('span:last-child').innerText = '❌ Sai mật khẩu rồi!';
+                errorToast.style.top = '20px';
+                
+                input.classList.add('shake');
+                setTimeout(() => {
+                    errorToast.style.top = '-100px';
+                    errorToast.querySelector('span:last-child').innerText = 'Sai mã rồi Việt ơi!';
+                    input.classList.remove('shake');
+                    input.value = '';
+                    input.focus();
+                }, 2000);
+            }
+        }
+
+        function closeLovePassword() {
+            document.getElementById('love-password-modal').style.display = 'none';
+            // Make sure 9B tab is active
+            switchTab('9b');
+        }
 
         // LOADING SCREEN
         window.addEventListener('load', () => {
