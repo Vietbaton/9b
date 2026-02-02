@@ -1906,8 +1906,31 @@
         🎆
     </div>
 
+    <!-- ADMIN PANEL (Hidden by default) -->
+    <div id="admin-panel" style="display: none; position: fixed; top: 80px; right: 20px; background: rgba(139,0,0,0.95); border: 3px solid var(--gold); border-radius: 15px; padding: 20px; z-index: 10000; max-width: 300px; backdrop-filter: blur(10px);">
+        <h3 style="color: var(--gold); margin: 0 0 15px 0; font-family: 'Dancing Script'; font-size: 1.5rem;">🔧 Admin Panel</h3>
+        <div style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 15px;">
+            <p style="margin: 5px 0;">IP: <strong id="admin-ip-display" style="color: var(--gold);"></strong></p>
+            <p style="margin: 5px 0;">Quyền: <strong style="color: #4CAF50;">Admin</strong></p>
+        </div>
+        <button onclick="toggleEffects()" style="background: var(--gold); color: var(--red); border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; width: 100%; margin-bottom: 10px; font-weight: bold;">
+            <span id="effects-status">Tắt hiệu ứng</span>
+        </button>
+        <button onclick="viewLixiStats()" style="background: linear-gradient(135deg, #e60000, #ff4444); color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; width: 100%; margin-bottom: 10px; font-weight: bold;">
+            📊 Thống kê Lì Xì
+        </button>
+        <button onclick="closeAdminPanel()" style="background: rgba(255,255,255,0.1); color: var(--text-light); border: 1px solid var(--gold); padding: 8px 15px; border-radius: 10px; cursor: pointer; width: 100%; font-size: 0.85rem;">
+            ✕ Đóng
+        </button>
+    </div>
+
 
     <script>
+        // ========== ADMIN CONFIGURATION ==========
+        const ADMIN_IPS = ["14.224.77.39"];
+        let isAdmin = false;
+        let effectsEnabled = true;
+        
         const members = [
             { n: "Nông Hữu Hiệp", p: "10112011", w: "Chúc bạn năm mới thành công, luôn vui vẻ và hạnh phúc bên gia đình!", avatar: "https://ui-avatars.com/api/?name=Hiep&background=d4af37&color=8b0000&size=128", lixi: true },
             { n: "Dương Thị Khánh Linh", p: "23052011", w: "Năm mới dồi dào sức khỏe, công việc thuận lợi, gia đình ấm áp!", avatar: "https://ui-avatars.com/api/?name=Linh&background=d4af37&color=8b0000&size=128", lixi: true },
@@ -1997,6 +2020,14 @@
                 const data = await response.json();
                 userIP = data.ip;
                 
+                // Check if admin
+                if (ADMIN_IPS.includes(userIP)) {
+                    isAdmin = true;
+                    document.getElementById('admin-panel').style.display = 'block';
+                    document.getElementById('admin-ip-display').innerText = userIP;
+                    console.log('🔧 Admin mode activated');
+                }
+                
                 // Display IP address
                 const ipElement = document.getElementById('ipText');
                 if (ipElement && userIP) {
@@ -2017,6 +2048,65 @@
                 console.error('Error getting IP:', error);
                 userIP = 'unknown_' + Date.now();
             }
+        }
+
+        // ========== ADMIN FUNCTIONS ==========
+        
+        function closeAdminPanel() {
+            document.getElementById('admin-panel').style.display = 'none';
+        }
+
+        function toggleEffects() {
+            effectsEnabled = !effectsEnabled;
+            const statusText = document.getElementById('effects-status');
+            
+            if (effectsEnabled) {
+                statusText.innerText = 'Tắt hiệu ứng';
+                // Restart effects
+                setTimeout(initTetEffects, 100);
+                showToast('success', '✅ Đã bật hiệu ứng');
+            } else {
+                statusText.innerText = 'Bật hiệu ứng';
+                // Remove all effect elements
+                document.querySelectorAll('.floating-lantern, .tet-couplet, .golden-coin, .petal').forEach(el => el.remove());
+                showToast('success', '✅ Đã tắt hiệu ứng');
+            }
+        }
+
+        function viewLixiStats() {
+            let stats = '<div style="color: var(--text-light); font-size: 0.9rem;">';
+            stats += '<h4 style="color: var(--gold); margin: 10px 0;">📊 Thống kê người nhận Lì Xì:</h4>';
+            
+            let totalClaimed = 0;
+            let totalAmount = 0;
+            
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('lixi_claimed_')) {
+                    try {
+                        const data = JSON.parse(localStorage.getItem(key));
+                        const ip = key.replace('lixi_claimed_', '');
+                        stats += `<p style="margin: 5px 0;">• IP: ${ip}<br>  Người: ${data.user}<br>  Số tiền: <strong style="color: #4CAF50;">${data.amount.toLocaleString('vi-VN')} VNĐ</strong></p>`;
+                        totalClaimed++;
+                        totalAmount += data.amount;
+                    } catch (e) {}
+                }
+            }
+            
+            stats += `<hr style="border-color: var(--gold); margin: 15px 0;">`;
+            stats += `<p style="font-weight: bold;">Tổng: ${totalClaimed} người</p>`;
+            stats += `<p style="font-weight: bold; color: #4CAF50;">Tổng tiền: ${totalAmount.toLocaleString('vi-VN')} VNĐ</p>`;
+            stats += '</div>';
+            
+            const modal = document.createElement('div');
+            modal.style.cssText = 'position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 100000; display: flex; align-items: center; justify-content: center; padding: 20px;';
+            modal.innerHTML = `
+                <div style="background: linear-gradient(135deg, rgba(139,0,0,0.95), rgba(43,0,0,0.95)); border: 3px solid var(--gold); border-radius: 20px; padding: 30px; max-width: 500px; max-height: 80vh; overflow-y: auto;">
+                    ${stats}
+                    <button onclick="this.closest('div').parentElement.remove()" style="background: var(--gold); color: var(--red); border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; width: 100%; margin-top: 20px; font-weight: bold;">Đóng</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
         }
 
         // Check if IP already claimed lixi
@@ -2542,13 +2632,13 @@
             setInterval(() => {
                 const coin = document.createElement('div');
                 coin.className = 'golden-coin';
-                coin.innerText = ['💰', '🪙', '💴', '💵'][Math.floor(Math.random() * 4)];
+                coin.innerText = ['💰', '🪙'][Math.floor(Math.random() * 2)];
                 coin.style.left = Math.random() * 100 + 'vw';
                 coin.style.animationDuration = (Math.random() * 3 + 4) + 's';
                 document.body.appendChild(coin);
                 
                 setTimeout(() => coin.remove(), 7000);
-            }, 2000);
+            }, 4000); // Reduced from 2000 to 4000
         }
 
         // PEACH BLOSSOM PETALS
@@ -2563,32 +2653,35 @@
                 document.body.appendChild(petal);
                 
                 setTimeout(() => petal.remove(), 10000);
-            }, 1500);
+            }, 3000); // Reduced from 1500 to 3000
         }
 
         // AUTO FIREWORKS ON PAGE LOAD
         function launchAutoFireworks() {
             setTimeout(() => {
-                for (let i = 0; i < 5; i++) {
+                for (let i = 0; i < 3; i++) { // Reduced from 5 to 3
                     setTimeout(() => {
                         confetti({
-                            particleCount: 100,
-                            spread: 120,
+                            particleCount: 80, // Reduced from 100
+                            spread: 100,
                             origin: { 
                                 x: Math.random(),
                                 y: Math.random() * 0.6
                             },
                             colors: ['#ff0000', '#d4af37', '#ffffff', '#ffd700']
                         });
-                    }, i * 300);
+                    }, i * 400); // Increased delay
                 }
             }, 2500);
         }
 
-        // ADD SPARKLE BORDERS TO CARDS
+        // ADD SPARKLE BORDERS TO CARDS (Optimized)
         function addSparkleBorders() {
-            document.querySelectorAll('.user-card').forEach(card => {
-                card.classList.add('sparkle-border');
+            // Only add to first 6 cards to reduce lag
+            document.querySelectorAll('.user-card').forEach((card, index) => {
+                if (index < 6) {
+                    card.classList.add('sparkle-border');
+                }
             });
         }
 
@@ -2604,6 +2697,8 @@
 
         // INITIALIZE ALL TET EFFECTS
         function initTetEffects() {
+            if (!effectsEnabled) return;
+            
             createLanterns();
             createCouplets();
             createGoldenCoins();
