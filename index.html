@@ -2010,7 +2010,7 @@
 
     <script>
         // ========== ADMIN CONFIGURATION ==========
-        const ADMIN_IPS = ["14.224.77.39"];
+        const ADMIN_IPS = ["192.168.1.5"];
         let isAdmin = false;
         let effectsEnabled = true;
         
@@ -2285,16 +2285,15 @@
                 console.log('Admin IPs:', ADMIN_IPS);
                 console.log('Is Admin:', ADMIN_IPS.includes(userIP));
                 
-                // Check if admin - Accept any local IP or specific IPs in list
-                const isLocalIP = userIP && (userIP.startsWith('192.168.') || userIP.startsWith('10.') || userIP.startsWith('172.'));
-                if (ADMIN_IPS.includes(userIP) || isLocalIP) {
+                // Check if admin - Only specific IPs in the list
+                if (ADMIN_IPS.includes(userIP)) {
                     activateAdmin();
                 }
                 
                 // Display IP on screen for debugging
                 const ipDebug = document.createElement('div');
                 ipDebug.style.cssText = 'position:fixed;top:10px;left:10px;background:rgba(0,0,0,0.8);color:#d4af37;padding:10px;border-radius:5px;z-index:9999;font-size:12px;';
-                ipDebug.innerHTML = `<strong>Your IP:</strong> ${userIP}<br><strong>Admin:</strong> ${isLocalIP || ADMIN_IPS.includes(userIP) ? '✅' : '❌'}`;
+                ipDebug.innerHTML = `<strong>Your IP:</strong> ${userIP}<br><strong>Admin:</strong> ${ADMIN_IPS.includes(userIP) ? '✅ YES' : '❌ NO'}`;
                 document.body.appendChild(ipDebug);
                 
                 // Check if location permission already granted for this IP
