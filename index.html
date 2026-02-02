@@ -1626,6 +1626,16 @@
                 <strong>💡 Mẹo:</strong> Bạn có thể chuyển đổi chế độ sáng/tối bằng nút 🌙 ở góc phải màn hình!
             </div>
 
+            <div style="background: rgba(255,69,0,0.15); border-left: 4px solid #ff4444; padding: 15px; border-radius: 8px; margin-top: 15px; font-size: 0.85rem;">
+                <strong>✨ Hiệu ứng Tết:</strong>
+                <p style="margin: 8px 0 0 0; line-height: 1.6;">
+                    • Nút <strong>✨</strong> để bật/tắt hiệu ứng (đèn lồng, xu vàng, hoa đào)<br>
+                    • <strong style="color: #4CAF50;">Máy mạnh:</strong> Bật để trải nghiệm đầy đủ<br>
+                    • <strong style="color: #FFA500;">Máy tầm trung:</strong> Bật được, có thể hơi lag<br>
+                    • <strong style="color: #f44336;">Máy yếu:</strong> Nên tắt để web chạy mượt hơn
+                </p>
+            </div>
+
             <button class="guide-close-btn" onclick="closeGuide()">Bắt Đầu Khám Phá! 🎊</button>
         </div>
     </div>
@@ -1648,6 +1658,11 @@
     <!-- AUDIO TOGGLE -->
     <div class="audio-toggle" onclick="toggleAudio()">
         <span id="audioIcon">🔇</span>
+    </div>
+
+    <!-- EFFECTS TOGGLE (For everyone) -->
+    <div class="audio-toggle" onclick="toggleEffectsPublic()" style="top: 130px;" title="Bật/Tắt hiệu ứng Tết">
+        <span id="effectsIcon">✨</span>
     </div>
 
     <!-- LOCATION BADGE -->
@@ -1912,18 +1927,40 @@
     </div>
 
     <!-- ADMIN PANEL (Hidden by default) -->
-    <div id="admin-panel" style="display: none; position: fixed; top: 80px; right: 20px; background: rgba(139,0,0,0.95); border: 3px solid var(--gold); border-radius: 15px; padding: 20px; z-index: 10000; max-width: 300px; backdrop-filter: blur(10px);">
+    <div id="admin-panel" style="display: none; position: fixed; top: 80px; right: 20px; background: rgba(139,0,0,0.95); border: 3px solid var(--gold); border-radius: 15px; padding: 20px; z-index: 10000; max-width: 350px; backdrop-filter: blur(10px); max-height: 80vh; overflow-y: auto;">
         <h3 style="color: var(--gold); margin: 0 0 15px 0; font-family: 'Dancing Script'; font-size: 1.5rem;">🔧 Admin Panel</h3>
         <div style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 15px;">
             <p style="margin: 5px 0;">IP: <strong id="admin-ip-display" style="color: var(--gold);"></strong></p>
             <p style="margin: 5px 0;">Quyền: <strong style="color: #4CAF50;">Admin</strong></p>
         </div>
-        <button onclick="toggleEffects()" style="background: var(--gold); color: var(--red); border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; width: 100%; margin-bottom: 10px; font-weight: bold;">
-            <span id="effects-status">Tắt hiệu ứng</span>
-        </button>
-        <button onclick="viewLixiStats()" style="background: linear-gradient(135deg, #e60000, #ff4444); color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; width: 100%; margin-bottom: 10px; font-weight: bold;">
-            📊 Thống kê Lì Xì
-        </button>
+        
+        <div style="border-top: 1px solid rgba(212,175,55,0.3); padding-top: 15px; margin-bottom: 15px;">
+            <h4 style="color: var(--gold); font-size: 1rem; margin: 0 0 10px 0;">🎨 Hiệu ứng</h4>
+            <button onclick="toggleEffects()" style="background: var(--gold); color: var(--red); border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; width: 100%; margin-bottom: 10px; font-weight: bold;">
+                <span id="effects-status">Tắt hiệu ứng</span>
+            </button>
+        </div>
+
+        <div style="border-top: 1px solid rgba(212,175,55,0.3); padding-top: 15px; margin-bottom: 15px;">
+            <h4 style="color: var(--gold); font-size: 1rem; margin: 0 0 10px 0;">🧧 Quản lý Lì Xì</h4>
+            <button onclick="viewLixiStats()" style="background: linear-gradient(135deg, #e60000, #ff4444); color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; width: 100%; margin-bottom: 10px; font-weight: bold;">
+                📊 Xem thống kê
+            </button>
+            <button onclick="manageLixiIPs()" style="background: linear-gradient(135deg, #ff9800, #ff5722); color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; width: 100%; margin-bottom: 10px; font-weight: bold;">
+                🗑️ Xóa IP đã nhận
+            </button>
+            <button onclick="clearAllLixi()" style="background: linear-gradient(135deg, #f44336, #d32f2f); color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; width: 100%; margin-bottom: 10px; font-weight: bold;">
+                ⚠️ Xóa tất cả dữ liệu
+            </button>
+        </div>
+
+        <div style="border-top: 1px solid rgba(212,175,55,0.3); padding-top: 15px; margin-bottom: 15px;">
+            <h4 style="color: var(--gold); font-size: 1rem; margin: 0 0 10px 0;">⚙️ Khác</h4>
+            <button onclick="exportData()" style="background: linear-gradient(135deg, #2196F3, #1976D2); color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; width: 100%; margin-bottom: 10px; font-weight: bold;">
+                📥 Xuất dữ liệu
+            </button>
+        </div>
+
         <button onclick="closeAdminPanel()" style="background: rgba(255,255,255,0.1); color: var(--text-light); border: 1px solid var(--gold); padding: 8px 15px; border-radius: 10px; cursor: pointer; width: 100%; font-size: 0.85rem;">
             ✕ Đóng
         </button>
@@ -2113,14 +2150,28 @@
             
             if (effectsEnabled) {
                 statusText.innerText = 'Tắt hiệu ứng';
-                // Restart effects
                 setTimeout(initTetEffects, 100);
                 showToast('success', '✅ Đã bật hiệu ứng');
             } else {
                 statusText.innerText = 'Bật hiệu ứng';
-                // Remove all effect elements
                 document.querySelectorAll('.floating-lantern, .tet-couplet, .golden-coin, .petal').forEach(el => el.remove());
                 showToast('success', '✅ Đã tắt hiệu ứng');
+            }
+        }
+
+        // PUBLIC EFFECTS TOGGLE (for everyone)
+        function toggleEffectsPublic() {
+            effectsEnabled = !effectsEnabled;
+            const icon = document.getElementById('effectsIcon');
+            
+            if (effectsEnabled) {
+                icon.innerText = '✨';
+                setTimeout(initTetEffects, 100);
+                showToast('success', '✨ Đã bật hiệu ứng Tết');
+            } else {
+                icon.innerText = '🚫';
+                document.querySelectorAll('.floating-lantern, .tet-couplet, .golden-coin, .petal').forEach(el => el.remove());
+                showToast('success', '🚫 Đã tắt hiệu ứng (giảm lag)');
             }
         }
 
@@ -2144,6 +2195,10 @@
                 }
             }
             
+            if (totalClaimed === 0) {
+                stats += '<p style="text-align: center; opacity: 0.7; margin: 20px 0;">Chưa có ai nhận lì xì</p>';
+            }
+            
             stats += `<hr style="border-color: var(--gold); margin: 15px 0;">`;
             stats += `<p style="font-weight: bold;">Tổng: ${totalClaimed} người</p>`;
             stats += `<p style="font-weight: bold; color: #4CAF50;">Tổng tiền: ${totalAmount.toLocaleString('vi-VN')} VNĐ</p>`;
@@ -2158,6 +2213,110 @@
                 </div>
             `;
             document.body.appendChild(modal);
+        }
+
+        function manageLixiIPs() {
+            let content = '<div style="color: var(--text-light); font-size: 0.9rem;">';
+            content += '<h4 style="color: var(--gold); margin: 10px 0;">🗑️ Quản lý IP đã nhận Lì Xì:</h4>';
+            
+            const ips = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('lixi_claimed_')) {
+                    const ip = key.replace('lixi_claimed_', '');
+                    const data = JSON.parse(localStorage.getItem(key));
+                    ips.push({ key, ip, data });
+                }
+            }
+            
+            if (ips.length === 0) {
+                content += '<p style="text-align: center; opacity: 0.7; margin: 20px 0;">Không có IP nào</p>';
+            } else {
+                ips.forEach(item => {
+                    content += `
+                        <div style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; margin: 10px 0;">
+                            <p style="margin: 3px 0;"><strong>IP:</strong> ${item.ip}</p>
+                            <p style="margin: 3px 0;"><strong>Người:</strong> ${item.data.user}</p>
+                            <p style="margin: 3px 0;"><strong>Tiền:</strong> ${item.data.amount.toLocaleString('vi-VN')} VNĐ</p>
+                            <button onclick="deleteIP('${item.key}')" style="background: #f44336; color: white; border: none; padding: 5px 15px; border-radius: 5px; cursor: pointer; margin-top: 5px; font-size: 0.8rem;">🗑️ Xóa IP này</button>
+                        </div>
+                    `;
+                });
+            }
+            
+            content += '</div>';
+            
+            const modal = document.createElement('div');
+            modal.id = 'manage-ip-modal';
+            modal.style.cssText = 'position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 100000; display: flex; align-items: center; justify-content: center; padding: 20px;';
+            modal.innerHTML = `
+                <div style="background: linear-gradient(135deg, rgba(139,0,0,0.95), rgba(43,0,0,0.95)); border: 3px solid var(--gold); border-radius: 20px; padding: 30px; max-width: 600px; max-height: 80vh; overflow-y: auto; width: 100%;">
+                    ${content}
+                    <button onclick="this.closest('div').parentElement.remove()" style="background: var(--gold); color: var(--red); border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; width: 100%; margin-top: 20px; font-weight: bold;">Đóng</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        function deleteIP(key) {
+            if (confirm('Bạn có chắc muốn xóa IP này?\n\nIP này sẽ có thể nhận lì xì lại.')) {
+                localStorage.removeItem(key);
+                showToast('success', '✅ Đã xóa IP');
+                // Refresh modal
+                document.getElementById('manage-ip-modal').remove();
+                manageLixiIPs();
+            }
+        }
+
+        function clearAllLixi() {
+            const count = Array.from({ length: localStorage.length }, (_, i) => localStorage.key(i))
+                .filter(key => key.startsWith('lixi_claimed_')).length;
+            
+            if (count === 0) {
+                showToast('error', 'Không có dữ liệu để xóa');
+                return;
+            }
+            
+            if (confirm(`⚠️ CẢNH BÁO!\n\nBạn sắp xóa TẤT CẢ ${count} dữ liệu lì xì.\n\nHành động này KHÔNG THỂ hoàn tác!\n\nBạn có chắc chắn?`)) {
+                if (confirm('Xác nhận lần cuối: Xóa tất cả?')) {
+                    for (let i = localStorage.length - 1; i >= 0; i--) {
+                        const key = localStorage.key(i);
+                        if (key.startsWith('lixi_claimed_')) {
+                            localStorage.removeItem(key);
+                        }
+                    }
+                    showToast('success', `✅ Đã xóa ${count} dữ liệu`);
+                    lixiClaimed = false;
+                }
+            }
+        }
+
+        function exportData() {
+            const data = {
+                exported: new Date().toISOString(),
+                adminIP: userIP,
+                lixiData: []
+            };
+            
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('lixi_claimed_')) {
+                    data.lixiData.push({
+                        ip: key.replace('lixi_claimed_', ''),
+                        ...JSON.parse(localStorage.getItem(key))
+                    });
+                }
+            }
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `lixi-data-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showToast('success', '📥 Đã tải xuống dữ liệu');
         }
 
         // Check if IP already claimed lixi
