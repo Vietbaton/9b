@@ -1559,6 +1559,16 @@
             transform: scale(0.95);
         }
 
+        /* LOCATION PERMISSION MODAL BUTTON HOVER */
+        #allow-location-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(212,175,55,0.5);
+        }
+
+        #allow-location-btn:active {
+            transform: scale(0.98);
+        }
+
         @media (max-width: 768px) {
             .firework-btn {
                 bottom: 20px;
@@ -1574,8 +1584,28 @@
 <body>
 <body onmousemove="sparkle(event)" ontouchmove="sparkle(event.touches[0])">
 
+    <!-- LOCATION PERMISSION MODAL -->
+    <div id="location-permission-modal" style="display: flex; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 100000; align-items: center; justify-content: center; padding: 20px;">
+        <div style="background: linear-gradient(135deg, rgba(139,0,0,0.95), rgba(43,0,0,0.98)); border: 3px solid var(--gold); border-radius: 20px; padding: 40px; max-width: 450px; text-align: center; box-shadow: 0 20px 60px rgba(212,175,55,0.6);">
+            <div style="font-size: 4rem; margin-bottom: 20px;">📍</div>
+            <h2 style="color: var(--gold); font-family: 'Dancing Script'; font-size: 2rem; margin: 0 0 15px 0;">Cho phép truy cập vị trí</h2>
+            <p style="color: var(--text-light); margin-bottom: 25px; line-height: 1.6;">
+                Website cần quyền truy cập vị trí của bạn để hiển thị nội dung. Vui lòng cho phép truy cập để tiếp tục.
+            </p>
+            <div style="background: rgba(212,175,55,0.1); border-left: 4px solid var(--gold); padding: 15px; margin-bottom: 25px; text-align: left; border-radius: 8px;">
+                <p style="margin: 0; font-size: 0.9rem; color: var(--text-light);">
+                    ℹ️ Thông tin vị trí của bạn được sử dụng để cải thiện trải nghiệm và không được chia sẻ với bên thứ ba.
+                </p>
+            </div>
+            <button id="allow-location-btn" style="background: var(--gold); color: var(--red); border: none; padding: 15px 40px; border-radius: 25px; cursor: pointer; font-weight: bold; font-size: 1.1rem; width: 100%; transition: all 0.3s; box-shadow: 0 5px 15px rgba(212,175,55,0.3);">
+                ✅ Cho phép truy cập
+            </button>
+            <p id="location-error" style="color: #ff6b6b; margin-top: 15px; display: none; font-size: 0.9rem;"></p>
+        </div>
+    </div>
+
     <!-- LOADING SCREEN -->
-    <div id="loading-screen">
+    <div id="loading-screen" style="display: none;">
         <svg class="loading-lantern" viewBox="0 0 100 120">
             <rect x="45" y="0" width="10" height="20" fill="#d4af37"/>
             <ellipse cx="50" cy="60" rx="40" ry="45" fill="#e60000"/>
@@ -2048,6 +2078,124 @@
             setTimeout(() => ripple.remove(), 600);
         });
 
+        // ========== LOCATION PERMISSION HANDLING ==========
+        
+        async function requestLocationPermission() {
+            const modal = document.getElementById('location-permission-modal');
+            const errorText = document.getElementById('location-error');
+            const loadingScreen = document.getElementById('loading-screen');
+            
+            if (!navigator.geolocation) {
+                errorText.textContent = '❌ Trình duyệt của bạn không hỗ trợ định vị.';
+                errorText.style.display = 'block';
+                // Allow access anyway after 2 seconds
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    loadingScreen.style.display = 'flex';
+                    initializePage();
+                }, 2000);
+                return;
+            }
+            
+            try {
+                // Request geolocation permission
+                navigator.geolocation.getCurrentPosition(
+                    // Success callback
+                    (position) => {
+                        userLocation = {
+                            latitude: position.coords.latitude,
+                            longitude: position.coords.longitude
+                        };
+                        console.log('Location granted:', userLocation);
+                        
+                        // Hide location modal, show loading screen
+                        modal.style.display = 'none';
+                        loadingScreen.style.display = 'flex';
+                        
+                        // Initialize page
+                        initializePage();
+                    },
+                    // Error callback
+                    (error) => {
+                        console.error('Location error:', error);
+                        let errorMessage = '';
+                        
+                        switch(error.code) {
+                            case error.PERMISSION_DENIED:
+                                errorMessage = '❌ Bạn đã từ chối quyền truy cập vị trí. Vui lòng cho phép trong cài đặt trình duyệt.';
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                errorMessage = '⚠️ Không thể xác định vị trí. Đang tiếp tục...';
+                                break;
+                            case error.TIMEOUT:
+                                errorMessage = '⏱️ Hết thời gian chờ. Đang tiếp tục...';
+                                break;
+                            default:
+                                errorMessage = '⚠️ Có lỗi xảy ra. Đang tiếp tục...';
+                        }
+                        
+                        errorText.textContent = errorMessage;
+                        errorText.style.display = 'block';
+                        
+                        // Allow access anyway after 3 seconds
+                        setTimeout(() => {
+                            modal.style.display = 'none';
+                            loadingScreen.style.display = 'flex';
+                            initializePage();
+                        }, 3000);
+                    },
+                    // Options
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 0
+                    }
+                );
+            } catch (error) {
+                console.error('Geolocation error:', error);
+                errorText.textContent = '⚠️ Có lỗi xảy ra. Đang tiếp tục...';
+                errorText.style.display = 'block';
+                
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    loadingScreen.style.display = 'flex';
+                    initializePage();
+                }, 2000);
+            }
+        }
+        
+        function initializePage() {
+            // Get user IP and continue with normal initialization
+            getUserIP();
+            
+            // Display location info if available
+            if (userLocation) {
+                fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${userLocation.latitude}&longitude=${userLocation.longitude}&localityLanguage=vi`)
+                    .then(res => res.json())
+                    .then(data => {
+                        const city = data.city || data.locality || data.principalSubdivision || 'Việt Nam';
+                        document.getElementById('locationText').innerText = city;
+                        document.getElementById('locationBadge').style.display = 'flex';
+                    })
+                    .catch(() => {
+                        document.getElementById('locationText').innerText = 'Vị trí';
+                        document.getElementById('locationBadge').style.display = 'flex';
+                    });
+            }
+            
+            // Continue with existing initialization
+            setTimeout(() => {
+                document.getElementById('loading-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loading-screen').style.display = 'none';
+                    document.getElementById('guide-modal').style.display = 'flex';
+                }, 500);
+            }, 2000);
+        }
+        
+        // Attach event listener to location button
+        document.getElementById('allow-location-btn').addEventListener('click', requestLocationPermission);
+
         // LIXI GAME FUNCTIONS WITH IP TRACKING
         let shakeCount = 0;
         let lastShakeTime = 0;
@@ -2496,17 +2644,11 @@
 
         // ============ ORIGINAL FUNCTIONS (ENHANCED) ============
 
-        // LOADING SCREEN
+        // LOADING SCREEN - Modified to wait for location permission
         window.addEventListener('load', () => {
             createParticles();
-            getUserIP(); // Get user IP for lixi tracking
-            setTimeout(() => {
-                document.getElementById('loading-screen').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('loading-screen').style.display = 'none';
-                    document.getElementById('guide-modal').style.display = 'flex';
-                }, 500);
-            }, 2000);
+            // Don't auto-load anymore - wait for location permission first
+            // Location modal is shown by default, user must click to proceed
         });
 
         // CLOSE GUIDE
@@ -2514,39 +2656,8 @@
             document.getElementById('guide-modal').style.display = 'none';
         }
 
-        // LOCATION - Improved with fallback
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const { latitude, longitude } = position.coords;
-                    fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=vi`)
-                        .then(res => res.json())
-                        .then(data => {
-                            const city = data.city || data.locality || data.principalSubdivision || 'Việt Nam';
-                            document.getElementById('locationText').innerText = city;
-                            document.getElementById('locationBadge').style.display = 'flex';
-                        })
-                        .catch(() => {
-                            // If API fails, still show badge with IP only
-                            document.getElementById('locationText').innerText = 'Vị trí';
-                            document.getElementById('locationBadge').style.display = 'flex';
-                        });
-                },
-                (error) => {
-                    // User denied or location unavailable - still show IP
-                    document.getElementById('locationText').innerText = 'Vị trí không xác định';
-                    if (userIP) {
-                        document.getElementById('locationBadge').style.display = 'flex';
-                    }
-                }
-            );
-        } else {
-            // Geolocation not supported - show IP only
-            document.getElementById('locationText').innerText = 'Vị trí';
-            if (userIP) {
-                document.getElementById('locationBadge').style.display = 'flex';
-            }
-        }
+        // LOCATION - Will be handled by location permission modal
+        // Display location info after getting permission
 
         // THEME TOGGLE
         function toggleTheme() {
