@@ -588,62 +588,6 @@
             line-height: 1.6;
         }
 
-        .lixi-button-container {
-            background: linear-gradient(135deg, #e60000, #ff4444);
-            border: 4px solid var(--gold);
-            border-radius: 15px;
-            padding: 40px 30px;
-            flex: 1;
-            min-width: 300px;
-            max-width: 450px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .lixi-button-container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-            animation: shimmer 3s infinite;
-        }
-
-        .lixi-button-container:hover {
-            transform: scale(1.02);
-            box-shadow: 0 10px 40px rgba(212,175,55,0.5);
-        }
-
-        .lixi-icon-large {
-            font-size: 6rem;
-            animation: swing 2s ease-in-out infinite;
-        }
-
-        @keyframes swing {
-            0%, 100% { transform: rotate(-10deg); }
-            50% { transform: rotate(10deg); }
-        }
-
-        .lixi-button-text {
-            color: white;
-            font-size: 1.8rem;
-            font-weight: bold;
-            text-align: center;
-            font-family: 'Dancing Script';
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            position: relative;
-            z-index: 1;
-        }
-
         .back-button {
             background: none;
             border: 2px solid var(--gold);
@@ -667,22 +611,11 @@
                 flex-direction: column;
             }
             
-            .wish-box, .lixi-button-container {
+            .wish-box {
                 max-width: 100%;
                 min-width: 100%;
-            }
-
-            .wish-box {
                 font-size: 1.3rem;
                 padding: 25px;
-            }
-
-            .lixi-icon-large {
-                font-size: 4rem;
-            }
-
-            .lixi-button-text {
-                font-size: 1.5rem;
             }
         }
 
@@ -1450,88 +1383,6 @@
         }
 
         /* LIXI GAME STYLES */
-        #lixi-game-modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.95);
-            z-index: 10001;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            backdrop-filter: blur(10px);
-        }
-        .lixi-game-content {
-            background: linear-gradient(135deg, rgba(139,0,0,0.95), rgba(43,0,0,0.95));
-            border: 3px solid var(--gold);
-            border-radius: 20px;
-            padding: 40px 30px;
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-            animation: modalBounceIn 0.5s ease-out;
-        }
-        @keyframes modalBounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        .lixi-game-title {
-            font-family: 'Dancing Script';
-            font-size: 2.5rem;
-            color: var(--gold);
-            margin-bottom: 20px;
-        }
-        .lixi-envelope {
-            width: 200px;
-            height: 250px;
-            margin: 30px auto;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .lixi-envelope:hover {
-            transform: scale(1.1);
-        }
-        .lixi-envelope.shaking {
-            animation: shake 0.5s infinite;
-        }
-        .lixi-result {
-            font-size: 1.5rem;
-            color: var(--gold);
-            margin: 20px 0;
-            min-height: 50px;
-            font-weight: bold;
-        }
-        .lixi-money {
-            font-size: 3rem;
-            color: #4CAF50;
-            font-weight: bold;
-            margin: 20px 0;
-            text-shadow: 0 0 20px rgba(76,175,80,0.5);
-        }
-        .shake-instruction {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin-bottom: 20px;
-        }
-        .lixi-close-btn {
-            background: var(--gold);
-            color: var(--red);
-            border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s;
-            margin-top: 20px;
-        }
-        .lixi-close-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(212,175,55,0.5);
-        }
-
         /* FIREWORK BUTTON */
         .firework-btn {
             position: fixed;
@@ -2101,37 +1952,10 @@
     <div id="wish-screen">
         <div class="wish-container">
             <div class="wish-box" id="typing"></div>
-            
-            <div class="lixi-button-container" id="lixiButtonContainer" onclick="openLixiGame()" style="display: none;">
-                <div class="lixi-icon-large">🧧</div>
-                <div class="lixi-button-text">Lắc<br>Lì Xì<br>May Mắn!</div>
-            </div>
         </div>
         <button class="back-button" onclick="location.reload()">🏠 Về trang chủ</button>
     </div>
 
-
-    <!-- LIXI GAME MODAL -->
-    <div id="lixi-game-modal">
-        <div class="lixi-game-content">
-            <h2 class="lixi-game-title shimmer-text">🧧 Lắc Lì Xì May Mắn 🧧</h2>
-            <p class="shake-instruction">Lắc điện thoại hoặc click vào bao lì xì nhiều lần!</p>
-            
-            <div class="lixi-envelope" id="lixiEnvelope" onclick="shakeLixi()">
-                <svg viewBox="0 0 200 250" style="width: 100%; height: 100%;">
-                    <rect x="20" y="80" width="160" height="150" fill="#e60000" stroke="#8b0000" stroke-width="3"/>
-                    <polygon points="100,30 20,80 180,80" fill="#ff4444" stroke="#8b0000" stroke-width="3"/>
-                    <circle cx="100" cy="155" r="30" fill="#d4af37"/>
-                    <text x="100" y="170" font-size="30" text-anchor="middle" fill="#8b0000" font-weight="bold">福</text>
-                </svg>
-            </div>
-            
-            <div class="lixi-result" id="lixiResult"></div>
-            <div class="lixi-money" id="lixiMoney"></div>
-            
-            <button class="lixi-close-btn" onclick="closeLixiGame()">Đóng</button>
-        </div>
-    </div>
 
     <!-- FIREWORK BUTTON -->
     <div class="firework-btn" onclick="launchFirework()" title="Bắn pháo hoa!">
@@ -2445,7 +2269,7 @@
                 
                 Trạng thái: ${isAdmin ? 'ADMIN ✅' : 'User thường'}
                 
-                ${!isAdmin ? 'Nhấn "Mở Admin" để kích hoạt admin mode' : ''}
+                ${!isAdmin ? '⚠️ Chỉ có IP admin mới có quyền truy cập' : ''}
             `;
             
             const modal = document.createElement('div');
@@ -2454,23 +2278,10 @@
                 <div style="background: linear-gradient(135deg, rgba(139,0,0,0.95), rgba(43,0,0,0.95)); border: 3px solid var(--gold); border-radius: 20px; padding: 30px; max-width: 400px; text-align: center;">
                     <h3 style="color: var(--gold); margin: 0 0 20px 0; font-family: 'Dancing Script'; font-size: 2rem;">🔧 IP Debug</h3>
                     <pre style="color: var(--text-light); text-align: left; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; font-size: 0.85rem; white-space: pre-wrap;">${message}</pre>
-                    ${!isAdmin ? '<button onclick="manualAdminUnlock()" style="background: var(--gold); color: var(--red); border: none; padding: 12px 25px; border-radius: 10px; cursor: pointer; width: 100%; margin: 10px 0; font-weight: bold;">🔓 Mở Admin (Bỏ qua kiểm tra IP)</button>' : ''}
-                    <button onclick="this.closest(\'div\').parentElement.remove()" style="background: rgba(255,255,255,0.1); color: var(--text-light); border: 1px solid var(--gold); padding: 10px 20px; border-radius: 10px; cursor: pointer; width: 100%;">Đóng</button>
+                    <button onclick="this.closest('div').parentElement.remove()" style="background: rgba(255,255,255,0.1); color: var(--text-light); border: 1px solid var(--gold); padding: 10px 20px; border-radius: 10px; cursor: pointer; width: 100%;">Đóng</button>
                 </div>
             `;
             document.body.appendChild(modal);
-        }
-
-        function manualAdminUnlock() {
-            if (confirm('Bạn có chắc muốn kích hoạt Admin mode?\n\nChức năng này chỉ dành cho Admin.')) {
-                activateAdmin();
-                // Close debug modal
-                document.querySelectorAll('div').forEach(el => {
-                    if (el.style.position === 'fixed' && el.style.zIndex === '100000') {
-                        el.remove();
-                    }
-                });
-            }
         }
 
         // ========== ADMIN FUNCTIONS ==========
@@ -2682,120 +2493,6 @@
                 } else {
                     reject(new Error('Geolocation not supported'));
                 }
-            });
-        }
-
-        async function openLixiGame() {
-            if (!selected || !selected.lixi) {
-                showToast('error', 'Bạn không có quyền chơi game lì xì! 😢');
-                return;
-            }
-
-            // Check if already claimed
-            if (lixiClaimed) {
-                const claimedData = JSON.parse(localStorage.getItem('lixi_claimed_' + userIP));
-                showToast('error', `Bạn đã nhận ${claimedData.amount.toLocaleString('vi-VN')} VNĐ rồi! Mỗi IP chỉ nhận 1 lần duy nhất. 😊`);
-                return;
-            }
-
-            // Request location if not granted
-            if (!userLocation) {
-                try {
-                    showToast('success', 'Đang yêu cầu quyền vị trí...');
-                    await requestLocation();
-                    showToast('success', '✅ Đã cấp quyền vị trí!');
-                } catch (error) {
-                    showToast('error', '❌ Bạn cần cấp quyền vị trí để chơi game lì xì!');
-                    return;
-                }
-            }
-            
-            document.getElementById('lixi-game-modal').style.display = 'flex';
-            shakeCount = 0;
-            document.getElementById('lixiResult').innerText = '';
-            document.getElementById('lixiMoney').innerText = '';
-            document.getElementById('lixiEnvelope').classList.remove('shaking');
-        }
-
-        function closeLixiGame() {
-            document.getElementById('lixi-game-modal').style.display = 'none';
-        }
-
-        function shakeLixi() {
-            const now = Date.now();
-            if (now - lastShakeTime < 200) return;
-            lastShakeTime = now;
-            
-            shakeCount++;
-            const envelope = document.getElementById('lixiEnvelope');
-            envelope.classList.add('shaking');
-            
-            setTimeout(() => envelope.classList.remove('shaking'), 500);
-            
-            if (shakeCount >= 10) {
-                openLixiEnvelope();
-            }
-        }
-
-        function openLixiEnvelope() {
-            // Random amount from 20k to 100k
-            const amounts = [20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000];
-            const luckyMoney = amounts[Math.floor(Math.random() * amounts.length)];
-            
-            // Save claim data
-            localStorage.setItem('lixi_claimed_' + userIP, JSON.stringify({
-                amount: luckyMoney,
-                timestamp: Date.now(),
-                location: userLocation,
-                user: selected.n
-            }));
-            lixiClaimed = true;
-
-            document.getElementById('lixiResult').innerText = '🎉 Chúc mừng bạn nhận được:';
-            document.getElementById('lixiMoney').innerText = luckyMoney.toLocaleString('vi-VN') + ' VNĐ';
-            
-            // Confetti
-            confetti({ 
-                particleCount: 200, 
-                spread: 100, 
-                origin: { y: 0.6 },
-                colors: ['#e60000', '#d4af37', '#ff4444']
-            });
-            
-            if (audioEnabled) {
-                document.getElementById('fireworkSound').play().catch(e => console.log(e));
-            }
-            
-            shakeCount = 0;
-
-            // Show claimed notice
-            setTimeout(() => {
-                showToast('success', '💡 Lưu ý: Mỗi IP chỉ được nhận 1 lì xì duy nhất!');
-            }, 2000);
-        }
-
-        // DEVICE SHAKE DETECTION FOR MOBILE
-        if (window.DeviceMotionEvent) {
-            let lastX = 0, lastY = 0, lastZ = 0;
-            
-            window.addEventListener('devicemotion', (e) => {
-                const modal = document.getElementById('lixi-game-modal');
-                if (modal.style.display !== 'flex') return;
-                
-                const acceleration = e.accelerationIncludingGravity;
-                const x = acceleration.x || 0;
-                const y = acceleration.y || 0;
-                const z = acceleration.z || 0;
-                
-                const change = Math.abs(x + y + z - lastX - lastY - lastZ);
-                
-                if (change > 30) {
-                    shakeLixi();
-                }
-                
-                lastX = x;
-                lastY = y;
-                lastZ = z;
             });
         }
 
@@ -3072,11 +2769,6 @@
                     typingElement.innerHTML += wishText.charAt(i);
                     i++;
                     setTimeout(type, 50);
-                } else {
-                    // Show lixi button if user has lixi
-                    if (selected.lixi) {
-                        document.getElementById('lixiButtonContainer').style.display = 'flex';
-                    }
                 }
             }
             type();
