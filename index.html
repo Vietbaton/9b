@@ -2226,38 +2226,76 @@
         let userLocation = null;
         let lixiClaimed = false;
 
+        // Function to get Local IP using WebRTC
+        function getLocalIP() {
+            return new Promise((resolve, reject) => {
+                const rtc = new RTCPeerConnection({iceServers: []});
+                const addrs = {};
+                
+                rtc.createDataChannel('');
+                
+                rtc.onicecandidate = (e) => {
+                    if (!e.candidate) {
+                        rtc.close();
+                        const ips = Object.keys(addrs);
+                        resolve(ips.length > 0 ? ips[0] : null);
+                        return;
+                    }
+                    
+                    const parts = e.candidate.candidate.split(' ');
+                    const addr = parts[4];
+                    const type = parts[7];
+                    
+                    if (type === 'host' && addr && !addrs[addr]) {
+                        addrs[addr] = true;
+                    }
+                };
+                
+                rtc.createOffer()
+                    .then(offer => rtc.setLocalDescription(offer))
+                    .catch(err => {
+                        console.error('Error getting local IP:', err);
+                        resolve(null);
+                    });
+                
+                // Timeout after 2 seconds
+                setTimeout(() => {
+                    rtc.close();
+                    const ips = Object.keys(addrs);
+                    resolve(ips.length > 0 ? ips[0] : null);
+                }, 2000);
+            });
+        }
+
         // Get user IP on page load
         async function getUserIP() {
             try {
-                // Get IP from multiple sources to verify
-                const response1 = await fetch('https://api.ipify.org?format=json');
-                const data1 = await response1.json();
-                const ip1 = data1.ip;
+                // Get Local IP Address using WebRTC
+                const localIP = await getLocalIP();
                 
-                // Verify with second source
-                const response2 = await fetch('https://api.bigdatacloud.net/data/client-ip');
-                const data2 = await response2.json();
-                const ip2 = data2.ipString;
-                
-                // Check if IPs match (prevent fake IP)
-                if (ip1 !== ip2) {
-                    console.warn('⚠️ IP mismatch detected! Possible VPN/Proxy');
-                    showToast('error', '⚠️ Phát hiện VPN/Proxy. Vui lòng tắt để tiếp tục.');
-                    userIP = 'blocked_' + Date.now();
-                    return;
+                if (localIP) {
+                    userIP = localIP;
+                } else {
+                    // Fallback: generate a unique ID based on browser
+                    userIP = 'local_' + navigator.userAgent.substring(0, 20).replace(/\s/g, '');
                 }
                 
-                userIP = ip1;
-                
                 console.log('=== IP DEBUG ===');
-                console.log('Current IP:', userIP);
+                console.log('Current Local IP:', userIP);
                 console.log('Admin IPs:', ADMIN_IPS);
                 console.log('Is Admin:', ADMIN_IPS.includes(userIP));
                 
-                // Check if admin
-                if (ADMIN_IPS.includes(userIP)) {
+                // Check if admin - Accept any local IP or specific IPs in list
+                const isLocalIP = userIP && (userIP.startsWith('192.168.') || userIP.startsWith('10.') || userIP.startsWith('172.'));
+                if (ADMIN_IPS.includes(userIP) || isLocalIP) {
                     activateAdmin();
                 }
+                
+                // Display IP on screen for debugging
+                const ipDebug = document.createElement('div');
+                ipDebug.style.cssText = 'position:fixed;top:10px;left:10px;background:rgba(0,0,0,0.8);color:#d4af37;padding:10px;border-radius:5px;z-index:9999;font-size:12px;';
+                ipDebug.innerHTML = `<strong>Your IP:</strong> ${userIP}<br><strong>Admin:</strong> ${isLocalIP || ADMIN_IPS.includes(userIP) ? '✅' : '❌'}`;
+                document.body.appendChild(ipDebug);
                 
                 // Check if location permission already granted for this IP
                 const locationGranted = localStorage.getItem('location_granted_' + userIP);
