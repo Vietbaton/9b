@@ -1569,15 +1569,188 @@
             transform: scale(0.98);
         }
 
-        @media (max-width: 768px) {
-            .firework-btn {
-                bottom: 20px;
-                right: 20px;
-                width: 50px;
-                height: 50px;
-                font-size: 1.5rem;
+        /* ========== LIXI OPENING ANIMATION ========== */
+        
+        #lixi-animation-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 100000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s;
+        }
+
+        .lixi-container {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            perspective: 1000px;
+        }
+
+        .lixi-envelope {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            animation: lixiShake 0.5s ease-in-out;
+        }
+
+        @keyframes lixiShake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        .lixi-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            border: 4px solid var(--gold);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 60px rgba(255,0,0,0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .lixi-front:hover {
+            transform: scale(1.05);
+            box-shadow: 0 25px 70px rgba(255,0,0,0.7);
+        }
+
+        .lixi-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: lixiBounce 1s ease-in-out infinite;
+        }
+
+        @keyframes lixiBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .lixi-text {
+            font-family: 'Dancing Script';
+            font-size: 2rem;
+            color: var(--gold);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 10px;
+        }
+
+        .lixi-tap-hint {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.8);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .lixi-opening {
+            animation: lixiOpen 1s ease-out forwards;
+        }
+
+        @keyframes lixiOpen {
+            0% {
+                transform: scale(1) rotateY(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.2) rotateY(90deg);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(0) rotateY(180deg);
+                opacity: 0;
             }
         }
+
+        .lixi-money-rain {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            font-size: 3rem;
+            opacity: 0;
+            animation: moneyFall 2s ease-out forwards;
+        }
+
+        @keyframes moneyFall {
+            0% {
+                opacity: 1;
+                transform: translateY(-100px) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(500px) rotate(720deg);
+            }
+        }
+
+        .lixi-amount {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-family: 'Dancing Script';
+            font-size: 4rem;
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(212,175,55,0.8);
+            animation: amountReveal 1s ease-out 0.5s forwards;
+            z-index: 10;
+        }
+
+        @keyframes amountReveal {
+            0% {
+                transform: translate(-50%, -50%) scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.3) rotate(180deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1) rotate(360deg);
+                opacity: 1;
+            }
+        }
+
+        .lixi-sparkles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .lixi-sparkle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            opacity: 0;
+        }
+
+        /* ========== NEW GAMES & FEATURES ========== */
+
+        /* GAME MENU BUTTON */
+        .game-menu-btn {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            z-index: 1001;
+            background: linear-gradient(135deg, var(--gold), #ffd700);
+            border: 3px solid var(--red);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(212,175,55,0.5);
+            
     </style>
     </style>
 </head>
@@ -1616,6 +1789,21 @@
         <div class="loading-text">Đang Load ...</div>
         <div class="loading-bar">
             <div class="loading-progress"></div>
+        </div>
+    </div>
+
+    <!-- LIXI ANIMATION MODAL -->
+    <div id="lixi-animation-modal">
+        <div class="lixi-container">
+            <div class="lixi-envelope" id="lixiEnvelope">
+                <div class="lixi-front" onclick="openLixiEnvelope()">
+                    <div class="lixi-icon">🧧</div>
+                    <div class="lixi-text">Lì Xì May Mắn</div>
+                    <div class="lixi-tap-hint">👆 Nhấn để mở</div>
+                </div>
+            </div>
+            <div class="lixi-sparkles" id="lixiSparkles"></div>
+            <div class="lixi-amount" id="lixiAmount" style="display: none;"></div>
         </div>
     </div>
 
@@ -1691,7 +1879,7 @@
     </div>
 
     <!-- EFFECTS TOGGLE (For everyone) -->
-    <div class="audio-toggle" onclick="toggleEffectsPublic()" style="top: 130px;" title="Bật/Tắt hiệu ứng Tết">
+    <div class="audio-toggle" onclick="toggleEffectsPublic()" style="top: 190px;" title="Bật/Tắt hiệu ứng Tết">
         <span id="effectsIcon">✨</span>
     </div>
 
@@ -2755,31 +2943,15 @@
                     if (Array.from(inputs).map(i => i.value).join("") === selected.p) {
                         // SUCCESS
                         document.getElementById('password-modal').style.display = 'none';
-                        document.getElementById('selection-screen').style.display = 'none';
-                        const wishScreen = document.getElementById('wish-screen');
-                        wishScreen.style.display = 'flex';
-                        wishScreen.classList.add('active');
                         
-                        // Play firework sound
-                        if (audioEnabled) {
-                            document.getElementById('fireworkSound').play().catch(e => console.log(e));
+                        // Check if user has lixi - show animation
+                        if (selected.lixi) {
+                            showLixiAnimation();
+                        } else {
+                            // No lixi - show wish directly
+                            showWishScreen();
                         }
-                        
-                        // Confetti
-                        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-                        setTimeout(() => confetti({ particleCount: 100, spread: 80, origin: { y: 0.5 } }), 300);
-                        setTimeout(() => confetti({ particleCount: 120, spread: 90, origin: { y: 0.7 } }), 600);
-                        
-                        // Success toast
-                        showToast('success', 'Chúc mừng năm mới! 🎉');
-                        
-                        // Type effect
-                        let i = 0;
-                        const wishText = selected.w;
-                        const typingElement = document.getElementById('typing');
-                        typingElement.innerHTML = '';
-                        function type() {
-                            if (i < wishText.length) {
+                    } else {
                                 typingElement.innerHTML += wishText.charAt(i);
                                 i++;
                                 setTimeout(type, 100);
@@ -2811,6 +2983,117 @@
                 }
             });
         });
+
+        // ========== LIXI ANIMATION FUNCTIONS ==========
+        
+        let lixiAmount = 0;
+        
+        function showLixiAnimation() {
+            // Generate random lixi amount (20k - 100k)
+            const amounts = [20000, 30000, 50000, 70000, 100000];
+            lixiAmount = amounts[Math.floor(Math.random() * amounts.length)];
+            
+            // Show lixi modal
+            document.getElementById('lixi-animation-modal').style.display = 'flex';
+            
+            // Play shake sound if audio enabled
+            if (audioEnabled) {
+                const audio = document.getElementById('audio');
+                audio.volume = 0.3;
+            }
+        }
+        
+        function openLixiEnvelope() {
+            const envelope = document.getElementById('lixiEnvelope');
+            const amountDiv = document.getElementById('lixiAmount');
+            const sparklesContainer = document.getElementById('lixiSparkles');
+            
+            // Add opening animation
+            envelope.classList.add('lixi-opening');
+            
+            // Create money rain
+            setTimeout(() => {
+                for (let i = 0; i < 15; i++) {
+                    const money = document.createElement('div');
+                    money.className = 'lixi-money-rain';
+                    money.innerText = '💰';
+                    money.style.left = Math.random() * 100 + '%';
+                    money.style.animationDelay = (Math.random() * 0.5) + 's';
+                    sparklesContainer.appendChild(money);
+                }
+            }, 300);
+            
+            // Show amount
+            setTimeout(() => {
+                amountDiv.style.display = 'block';
+                amountDiv.innerText = lixiAmount.toLocaleString('vi-VN') + '₫';
+                
+                // Confetti explosion
+                confetti({
+                    particleCount: 200,
+                    spread: 100,
+                    origin: { y: 0.5 },
+                    colors: ['#ff0000', '#d4af37', '#ffd700', '#ff1493']
+                });
+                
+                // Play firework sound
+                if (audioEnabled) {
+                    document.getElementById('fireworkSound').play().catch(e => console.log(e));
+                }
+            }, 1000);
+            
+            // Close and show wish screen
+            setTimeout(() => {
+                document.getElementById('lixi-animation-modal').style.display = 'none';
+                
+                // Reset for next time
+                envelope.classList.remove('lixi-opening');
+                amountDiv.style.display = 'none';
+                sparklesContainer.innerHTML = '';
+                
+                // Show wish screen
+                showWishScreen();
+            }, 3500);
+        }
+        
+        function showWishScreen() {
+            document.getElementById('selection-screen').style.display = 'none';
+            const wishScreen = document.getElementById('wish-screen');
+            wishScreen.style.display = 'flex';
+            wishScreen.classList.add('active');
+            
+            // Play firework sound
+            if (audioEnabled) {
+                document.getElementById('fireworkSound').play().catch(e => console.log(e));
+            }
+            
+            // Confetti
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+            setTimeout(() => confetti({ particleCount: 100, spread: 80, origin: { y: 0.5 } }), 300);
+            setTimeout(() => confetti({ particleCount: 120, spread: 90, origin: { y: 0.7 } }), 600);
+            
+            // Success toast
+            showToast('success', 'Chúc mừng năm mới! 🎉');
+            
+            // Type effect
+            let i = 0;
+            const wishText = selected.w;
+            const typingElement = document.getElementById('typing');
+            typingElement.innerHTML = '';
+            function type() {
+                if (i < wishText.length) {
+                    typingElement.innerHTML += wishText.charAt(i);
+                    i++;
+                    setTimeout(type, 50);
+                } else {
+                    // Show lixi button if user has lixi
+                    if (selected.lixi) {
+                        document.getElementById('lixiButtonContainer').style.display = 'flex';
+                    }
+                }
+            }
+            type();
+        }
 
         // TAB SWITCHING
         function switchTab(tabName) {
