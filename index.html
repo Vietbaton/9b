@@ -2112,12 +2112,24 @@
                 // Request geolocation permission
                 navigator.geolocation.getCurrentPosition(
                     // Success callback
-                    (position) => {
+                    async (position) => {
                         userLocation = {
                             latitude: position.coords.latitude,
                             longitude: position.coords.longitude
                         };
                         console.log('Location granted:', userLocation);
+                        
+                        // Get IP first to save permission
+                        if (!userIP) {
+                            await getUserIP();
+                        }
+                        
+                        // Save location permission granted for this IP
+                        localStorage.setItem('location_granted_' + userIP, JSON.stringify({
+                            granted: true,
+                            timestamp: Date.now(),
+                            location: userLocation
+                        }));
                         
                         // Hide location modal, show loading screen
                         modal.style.display = 'none';
@@ -2217,9 +2229,25 @@
         // Get user IP on page load
         async function getUserIP() {
             try {
-                const response = await fetch('https://api.ipify.org?format=json');
-                const data = await response.json();
-                userIP = data.ip;
+                // Get IP from multiple sources to verify
+                const response1 = await fetch('https://api.ipify.org?format=json');
+                const data1 = await response1.json();
+                const ip1 = data1.ip;
+                
+                // Verify with second source
+                const response2 = await fetch('https://api.bigdatacloud.net/data/client-ip');
+                const data2 = await response2.json();
+                const ip2 = data2.ipString;
+                
+                // Check if IPs match (prevent fake IP)
+                if (ip1 !== ip2) {
+                    console.warn('⚠️ IP mismatch detected! Possible VPN/Proxy');
+                    showToast('error', '⚠️ Phát hiện VPN/Proxy. Vui lòng tắt để tiếp tục.');
+                    userIP = 'blocked_' + Date.now();
+                    return;
+                }
+                
+                userIP = ip1;
                 
                 console.log('=== IP DEBUG ===');
                 console.log('Current IP:', userIP);
@@ -2229,6 +2257,14 @@
                 // Check if admin
                 if (ADMIN_IPS.includes(userIP)) {
                     activateAdmin();
+                }
+                
+                // Check if location permission already granted for this IP
+                const locationGranted = localStorage.getItem('location_granted_' + userIP);
+                if (locationGranted) {
+                    const data = JSON.parse(locationGranted);
+                    userLocation = data.location;
+                    console.log('✅ Location permission already granted for this IP');
                 }
                 
                 // Display IP address
@@ -2528,11 +2564,26 @@
 
         // ============ ORIGINAL FUNCTIONS (ENHANCED) ============
 
-        // LOADING SCREEN - Modified to wait for location permission
-        window.addEventListener('load', () => {
+        // LOADING SCREEN - Check if location already granted for this IP
+        window.addEventListener('load', async () => {
             createParticles();
-            // Don't auto-load anymore - wait for location permission first
-            // Location modal is shown by default, user must click to proceed
+            
+            // Get IP first
+            await getUserIP();
+            
+            // Check if location permission already granted for this IP
+            const locationGranted = localStorage.getItem('location_granted_' + userIP);
+            
+            if (locationGranted && !userIP.startsWith('blocked_') && !userIP.startsWith('unknown_')) {
+                // Skip location modal, go straight to loading
+                console.log('✅ Skipping location modal - already granted');
+                document.getElementById('location-permission-modal').style.display = 'none';
+                document.getElementById('loading-screen').style.display = 'flex';
+                initializePage();
+            } else {
+                // Show location permission modal (default behavior)
+                console.log('📍 Showing location permission modal');
+            }
         });
 
         // CLOSE GUIDE
@@ -2673,6 +2724,20 @@
         let lixiAmount = 0;
         
         function showLixiAnimation() {
+            // Check if this person already claimed lixi (by name, not IP)
+            const claimedKey = 'lixi_claimed_name_' + selected.n.replace(/\s+/g, '_');
+            const alreadyClaimed = localStorage.getItem(claimedKey);
+            
+            if (alreadyClaimed) {
+                const claimedData = JSON.parse(alreadyClaimed);
+                showToast('error', `${selected.n} đã nhận ${claimedData.amount.toLocaleString('vi-VN')}₫ rồi! Mỗi người chỉ nhận 1 lần. 😊`);
+                // Still show wish screen
+                setTimeout(() => {
+                    showWishScreen();
+                }, 2000);
+                return;
+            }
+            
             // Generate random lixi amount (20k - 100k)
             const amounts = [20000, 30000, 50000, 70000, 100000];
             lixiAmount = amounts[Math.floor(Math.random() * amounts.length)];
@@ -2691,6 +2756,15 @@
             const envelope = document.getElementById('lixiEnvelope');
             const amountDiv = document.getElementById('lixiAmount');
             const sparklesContainer = document.getElementById('lixiSparkles');
+            
+            // Save claimed status by name (not IP)
+            const claimedKey = 'lixi_claimed_name_' + selected.n.replace(/\s+/g, '_');
+            localStorage.setItem(claimedKey, JSON.stringify({
+                name: selected.n,
+                amount: lixiAmount,
+                timestamp: Date.now(),
+                ip: userIP
+            }));
             
             // Add opening animation
             envelope.classList.add('lixi-opening');
