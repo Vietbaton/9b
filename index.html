@@ -1906,6 +1906,11 @@
         🎆
     </div>
 
+    <!-- ADMIN DEBUG BUTTON -->
+    <div onclick="showIPDebug()" title="Xem IP (Nhấn giữ 3 giây)" style="position: fixed; bottom: 80px; right: 20px; width: 60px; height: 60px; background: rgba(212,175,55,0.3); border: 2px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1002; font-size: 1.5rem; transition: all 0.3s;">
+        🔧
+    </div>
+
     <!-- ADMIN PANEL (Hidden by default) -->
     <div id="admin-panel" style="display: none; position: fixed; top: 80px; right: 20px; background: rgba(139,0,0,0.95); border: 3px solid var(--gold); border-radius: 15px; padding: 20px; z-index: 10000; max-width: 300px; backdrop-filter: blur(10px);">
         <h3 style="color: var(--gold); margin: 0 0 15px 0; font-family: 'Dancing Script'; font-size: 1.5rem;">🔧 Admin Panel</h3>
@@ -2020,12 +2025,14 @@
                 const data = await response.json();
                 userIP = data.ip;
                 
+                console.log('=== IP DEBUG ===');
+                console.log('Current IP:', userIP);
+                console.log('Admin IPs:', ADMIN_IPS);
+                console.log('Is Admin:', ADMIN_IPS.includes(userIP));
+                
                 // Check if admin
                 if (ADMIN_IPS.includes(userIP)) {
-                    isAdmin = true;
-                    document.getElementById('admin-panel').style.display = 'block';
-                    document.getElementById('admin-ip-display').innerText = userIP;
-                    console.log('🔧 Admin mode activated');
+                    activateAdmin();
                 }
                 
                 // Display IP address
@@ -2047,6 +2054,50 @@
             } catch (error) {
                 console.error('Error getting IP:', error);
                 userIP = 'unknown_' + Date.now();
+            }
+        }
+
+        function activateAdmin() {
+            isAdmin = true;
+            document.getElementById('admin-panel').style.display = 'block';
+            document.getElementById('admin-ip-display').innerText = userIP;
+            console.log('🔧 Admin mode activated');
+            showToast('success', '🔧 Admin mode ON');
+        }
+
+        function showIPDebug() {
+            const message = `
+                IP hiện tại: ${userIP || 'Đang lấy...'}
+                
+                Admin IPs: ${ADMIN_IPS.join(', ')}
+                
+                Trạng thái: ${isAdmin ? 'ADMIN ✅' : 'User thường'}
+                
+                ${!isAdmin ? 'Nhấn "Mở Admin" để kích hoạt admin mode' : ''}
+            `;
+            
+            const modal = document.createElement('div');
+            modal.style.cssText = 'position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 100000; display: flex; align-items: center; justify-content: center; padding: 20px;';
+            modal.innerHTML = `
+                <div style="background: linear-gradient(135deg, rgba(139,0,0,0.95), rgba(43,0,0,0.95)); border: 3px solid var(--gold); border-radius: 20px; padding: 30px; max-width: 400px; text-align: center;">
+                    <h3 style="color: var(--gold); margin: 0 0 20px 0; font-family: 'Dancing Script'; font-size: 2rem;">🔧 IP Debug</h3>
+                    <pre style="color: var(--text-light); text-align: left; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; font-size: 0.85rem; white-space: pre-wrap;">${message}</pre>
+                    ${!isAdmin ? '<button onclick="manualAdminUnlock()" style="background: var(--gold); color: var(--red); border: none; padding: 12px 25px; border-radius: 10px; cursor: pointer; width: 100%; margin: 10px 0; font-weight: bold;">🔓 Mở Admin (Bỏ qua kiểm tra IP)</button>' : ''}
+                    <button onclick="this.closest(\'div\').parentElement.remove()" style="background: rgba(255,255,255,0.1); color: var(--text-light); border: 1px solid var(--gold); padding: 10px 20px; border-radius: 10px; cursor: pointer; width: 100%;">Đóng</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        function manualAdminUnlock() {
+            if (confirm('Bạn có chắc muốn kích hoạt Admin mode?\n\nChức năng này chỉ dành cho Admin.')) {
+                activateAdmin();
+                // Close debug modal
+                document.querySelectorAll('div').forEach(el => {
+                    if (el.style.position === 'fixed' && el.style.zIndex === '100000') {
+                        el.remove();
+                    }
+                });
             }
         }
 
