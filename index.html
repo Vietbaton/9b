@@ -1754,7 +1754,6 @@
     </style>
     </style>
 </head>
-<body>
 <body onmousemove="sparkle(event)" ontouchmove="sparkle(event.touches[0])">
 
     <!-- LOCATION PERMISSION MODAL -->
@@ -2951,18 +2950,6 @@
                             // No lixi - show wish directly
                             showWishScreen();
                         }
-                    } else {
-                                typingElement.innerHTML += wishText.charAt(i);
-                                i++;
-                                setTimeout(type, 100);
-                            } else {
-                                // Show lixi button if user has game
-                                if (selected.lixi) {
-                                    document.getElementById('lixiButtonContainer').style.display = 'flex';
-                                }
-                            }
-                        }
-                        type();
                     } else {
                         // ERROR
                         showToast('error', 'Sai mã rồi! 😢');
