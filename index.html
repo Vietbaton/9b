@@ -1355,23 +1355,23 @@
 
     <script>
         // ========== ADMIN CONFIGURATION ==========
-        const ADMIN_IPS = ["192.168.1.5"];
+        const ADMIN_IPS = ["192.168.1.5"," 14.229.136.140"];
         let isAdmin = false;
         let effectsEnabled = true;
         
         const members = [
-            { n: "Nông Hữu Hiệp", p: "10112011", w: "Chúc bạn năm mới thành công, luôn vui vẻ và hạnh phúc bên gia đình!", avatar: "https://ui-avatars.com/api/?name=Hiep&background=d4af37&color=8b0000&size=128", lixi: true },
-            { n: "Dương Thị Khánh Linh", p: "23052011", w: "Năm mới dồi dào sức khỏe, công việc thuận lợi, gia đình ấm áp!", avatar: "https://ui-avatars.com/api/?name=Linh&background=d4af37&color=8b0000&size=128", lixi: true },
-            { n: "Hoàng Ngọc Anh", p: "07062011", w: "Chúc bạn luôn tươi trẻ, xinh đẹp và gặp nhiều may mắn trong năm mới!", avatar: "https://ui-avatars.com/api/?name=Anh&background=d4af37&color=8b0000&size=128", lixi: true },
-            { n: "Hoàng Thị Thu Hương", p: "15112011", w: "Năm Bính Ngọ thành công rực rỡ, sức khỏe dồi dào, hạnh phúc viên mãn!", avatar: "https://ui-avatars.com/api/?name=Huong&background=d4af37&color=8b0000&size=128", lixi: true },
+            { n: "Nông Hữu Hiệp", p: "10112011", w: "Chúc bạn năm mới thành công,đỗ nv1, luôn vui vẻ, hạnh phúc bên gia đình và người thương!", avatar: "https://ui-avatars.com/api/?name=Hiep&background=d4af37&color=8b0000&size=128", lixi: true },
+            { n: "Dương Thị Khánh Linh", p: "23052011", w: "tôi chúc bạn năm mới nhiều sức khoẻ,luôn luôn xinh đẹp,hạnh phúc bên gia đình ,người thương và đỗ nv1 nhé ", avatar: "https://ui-avatars.com/api/?name=Linh&background=d4af37&color=8b0000&size=128", lixi: true },
+            { n: "Hoàng Ngọc Anh", p: "07062011", w: "Chúc bạn luôn tươi trẻ, xinh đẹp và hạnh phúc bên gia đình và người thương!", avatar: "https://ui-avatars.com/api/?name=Anh&background=d4af37&color=8b0000&size=128", lixi: true },
+            { n: "Hoàng Thị Thu Hương", p: "15112011", w: "Năm mới cháu chúc bá sức khỏe dồi dào, hạnh phúc bên già đình và người thương và đỗ nv1 nhé!", avatar: "https://ui-avatars.com/api/?name=Huong&background=d4af37&color=8b0000&size=128", lixi: true },
             { n: "Dương Huyền Trang", p: "25022011", w: "Chúc bạn luôn vui vẻ, tràn đầy năng lượng và đạt được mọi mục tiêu!", avatar: "https://ui-avatars.com/api/?name=Trang&background=d4af37&color=8b0000&size=128", lixi: false },
-            { n: "Lương Hoài Vân", p: "21052011", w: "Năm mới an khang thịnh vượng, vạn sự như ý, tài lộc đầy nhà!", avatar: "https://ui-avatars.com/api/?name=Van&background=d4af37&color=8b0000&size=128", lixi: true },
-            { n: "Lương Bình Minh", p: "04122011", w: "Chúc bạn sự nghiệp thăng tiến, gia đạo yên vui, phúc lộc song toàn!", avatar: "https://ui-avatars.com/api/?name=Minh&background=d4af37&color=8b0000&size=128", lixi: false },
-            { n: "Hoàng Hải Việt", p: "04012011", w: "Năm mới nhiều niềm vui, công việc hanh thông, gia đình hạnh phúc!", avatar: "https://ui-avatars.com/api/?name=Viet&background=d4af37&color=8b0000&size=128", lixi: false },
-            { n: "Vi Trần Bảo", p: "06092011", w: "Chúc bạn luôn khỏe mạnh, thành đạt và gặt hái nhiều thành công!", avatar: "https://ui-avatars.com/api/?name=Bao&background=d4af37&color=8b0000&size=128", lixi: false },
-            { n: "Lương Việt Anh", p: "03052011", w: "Năm Bính Ngọ tràn đầy năng lượng, vượng khí sinh tài, mọi sự hanh thông!", avatar: "https://ui-avatars.com/api/?name=VAnh&background=d4af37&color=8b0000&size=128", lixi: false },
-            { n: "Triệu Đức Hiệp", p: "01122011", w: "Chúc bạn sức khỏe dồi dào, công danh thịnh đạt, gia đạo êm ấm!", avatar: "https://ui-avatars.com/api/?name=DHiep&background=d4af37&color=8b0000&size=128", lixi: false },
-            { n: "Nguyễn Anh Đức", p: "09122011", w: "Năm mới phát tài phát lộc, vạn sự như ý, gia đình hạnh phúc!", avatar: "https://ui-avatars.com/api/?name=Duc&background=d4af37&color=8b0000&size=128", lixi: true },
+            { n: "Lương Hoài Vân", p: "21052011", w: "Chúc c Năm mới an khang thịnh vượng, vạn sự như ý, tài lộc đầy nhà, luôn xinh đẹp hạnh phúc bên gia đình và người thương , và đỗ nv1 nhé!", avatar: "https://ui-avatars.com/api/?name=Van&background=d4af37&color=8b0000&size=128", lixi: true },
+            { n: "Lương Bình Minh", p: "04122011", w: "Chúc Azai năm mới an khang thịnh vượng,vạn sự như ý,hạnh phúc bên già đình,người thươnng và đỗ nv1 nhé!", avatar: "https://ui-avatars.com/api/?name=Minh&background=d4af37&color=8b0000&size=128", lixi: false },
+            { n: "Hoàng Hải Việt", p: "04012011", w: "Năm mới nhiều niềm vui, an khang thịnh vượng, vạn sự như ý, tài lộc đầy nhà và đỗ nv1 nhé!", avatar: "https://ui-avatars.com/api/?name=Viet&background=d4af37&color=8b0000&size=128", lixi: false },
+            { n: "Vi Trần Bảo", p: "06092011", w: "Chúc bạn luôn khỏe mạnh,an khang thịnh vượng, vạn sự như ý, tài lộc đầy nhà và đỗ nv1 nhé!", avatar: "https://ui-avatars.com/api/?name=Bao&background=d4af37&color=8b0000&size=128", lixi: false },
+            { n: "Lương Việt Anh", p: "03052011", w: "Năm Bính Ngọ tràn đầy năng lượng, Năm mới an khang thịnh vượng, vạn sự như ý, tài lộc đầy nhà và đỗ nv1!", avatar: "https://ui-avatars.com/api/?name=VAnh&background=d4af37&color=8b0000&size=128", lixi: false },
+            { n: "Triệu Đức Hiệp", p: "01122011", w: "Chúc bạn sức khỏe dồi dào,an khang thịnh vượng, vạn sự như ý, tài lộc đầy nhà, gia đạo êm ấm và đỗ nv1!", avatar: "https://ui-avatars.com/api/?name=DHiep&background=d4af37&color=8b0000&size=128", lixi: false },
+            { n: "Nguyễn Anh Đức", p: "09122011", w: "Năm mới chúc lớp trưởng học tập giỏi , an khang thịnh vượng,vạn sự như ý và đỗ nv1 nhé!", avatar: "https://ui-avatars.com/api/?name=Duc&background=d4af37&color=8b0000&size=128", lixi: true },
             { n: "La Uyển Nhi", p: "28032011", w: "Chúc bạn luôn xinh đẹp, tươi trẻ và gặp nhiều điều tốt lành!", avatar: "https://ui-avatars.com/api/?name=Nhi&background=d4af37&color=8b0000&size=128", lixi: false },
             { n: "Nông Bảo Ánh", p: "07092011", w: "Năm mới an khang, thịnh vượng, vạn sự hanh thông như ý nguyện!", avatar: "https://ui-avatars.com/api/?name=BAnh&background=d4af37&color=8b0000&size=128", lixi: false }
         ];
