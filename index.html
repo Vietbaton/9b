@@ -1442,6 +1442,10 @@
             if (!navigator.geolocation) {
                 errorText.textContent = '❌ Trình duyệt của bạn không hỗ trợ định vị.';
                 errorText.style.display = 'block';
+                
+                // Save browser flag to skip modal next time
+                localStorage.setItem('location_granted_browser', 'true');
+                
                 // Allow access anyway after 2 seconds
                 setTimeout(() => {
                     modal.style.display = 'none';
@@ -1474,6 +1478,11 @@
                             location: userLocation
                         }));
                         
+                        // Also save a general browser flag
+                        localStorage.setItem('location_granted_browser', 'true');
+                        
+                        console.log('✅ Location permission saved for IP:', userIP);
+                        
                         // Hide location modal, show loading screen
                         modal.style.display = 'none';
                         loadingScreen.style.display = 'flex';
@@ -1503,6 +1512,9 @@
                         errorText.textContent = errorMessage;
                         errorText.style.display = 'block';
                         
+                        // Save browser flag to skip modal next time (even if location denied)
+                        localStorage.setItem('location_granted_browser', 'true');
+                        
                         // Allow access anyway after 3 seconds
                         setTimeout(() => {
                             modal.style.display = 'none';
@@ -1521,6 +1533,9 @@
                 console.error('Geolocation error:', error);
                 errorText.textContent = '⚠️ Có lỗi xảy ra. Đang tiếp tục...';
                 errorText.style.display = 'block';
+                
+                // Save browser flag to skip modal next time
+                localStorage.setItem('location_granted_browser', 'true');
                 
                 setTimeout(() => {
                     modal.style.display = 'none';
@@ -1832,12 +1847,22 @@
             // Get IP first
             await getUserIP();
             
-            // Check if location permission already granted for this IP
-            const locationGranted = localStorage.getItem('location_granted_' + userIP);
+            // Check if location permission already granted for this IP or browser
+            const locationGrantedIP = localStorage.getItem('location_granted_' + userIP);
+            const locationGrantedBrowser = localStorage.getItem('location_granted_browser');
             
-            if (locationGranted && !userIP.startsWith('blocked_') && !userIP.startsWith('unknown_')) {
+            if ((locationGrantedIP || locationGrantedBrowser) && !userIP.startsWith('blocked_') && !userIP.startsWith('unknown_')) {
                 // Skip location modal, go straight to loading
                 console.log('✅ Skipping location modal - already granted');
+                
+                // Restore location from localStorage if available
+                if (locationGrantedIP) {
+                    try {
+                        const data = JSON.parse(locationGrantedIP);
+                        userLocation = data.location;
+                    } catch(e) {}
+                }
+                
                 document.getElementById('location-permission-modal').style.display = 'none';
                 document.getElementById('loading-screen').style.display = 'flex';
                 initializePage();
