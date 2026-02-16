@@ -1342,6 +1342,9 @@
 
         <div style="border-top: 1px solid rgba(212,175,55,0.3); padding-top: 15px; margin-bottom: 15px;">
             <h4 style="color: var(--gold); font-size: 1rem; margin: 0 0 10px 0;">⚙️ Khác</h4>
+            <button onclick="clearIPCache()" style="background: linear-gradient(135deg, #FF9800, #F57C00); color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; width: 100%; margin-bottom: 10px; font-weight: bold;">
+                🔄 Làm mới IP
+            </button>
             <button onclick="exportData()" style="background: linear-gradient(135deg, #2196F3, #1976D2); color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; width: 100%; margin-bottom: 10px; font-weight: bold;">
                 📥 Xuất dữ liệu
             </button>
@@ -1355,23 +1358,23 @@
 
     <script>
         // ========== ADMIN CONFIGURATION ==========
-        const ADMIN_IPS = ["192.168.1.5","14.229.136.140"];
+        const ADMIN_IPS = ["192.168.1.5", "14.229.136.140"];
         let isAdmin = false;
         let effectsEnabled = true;
         
         const members = [
-            { n: "Nông Hữu Hiệp", p: "10112011", w: "Chúc bạn năm mới thành công,đỗ nv1, luôn vui vẻ, hạnh phúc bên gia đình và người thương!", avatar: "https://ui-avatars.com/api/?name=Hiep&background=d4af37&color=8b0000&size=128", lixi: true },
-            { n: "Dương Thị Khánh Linh", p: "23052011", w: "tôi chúc bạn năm mới nhiều sức khoẻ,luôn luôn xinh đẹp,hạnh phúc bên gia đình ,người thương và đỗ nv1 nhé ", avatar: "https://ui-avatars.com/api/?name=Linh&background=d4af37&color=8b0000&size=128", lixi: true },
+            { n: "Nông Hữu Hiệp", p: "10112011", w: "Chúc bạn năm mới thành công, đỗ nv1, luôn vui vẻ, hạnh phúc bên gia đình và người thương!", avatar: "https://ui-avatars.com/api/?name=Hiep&background=d4af37&color=8b0000&size=128", lixi: true },
+            { n: "Dương Thị Khánh Linh", p: "23052011", w: "Tôi chúc bạn năm mới nhiều sức khỏe, luôn luôn xinh đẹp, hạnh phúc bên gia đình, người thương và đỗ nv1 nhé!", avatar: "https://ui-avatars.com/api/?name=Linh&background=d4af37&color=8b0000&size=128", lixi: true },
             { n: "Hoàng Ngọc Anh", p: "07062011", w: "Chúc bạn luôn tươi trẻ, xinh đẹp và hạnh phúc bên gia đình và người thương!", avatar: "https://ui-avatars.com/api/?name=Anh&background=d4af37&color=8b0000&size=128", lixi: true },
-            { n: "Hoàng Thị Thu Hương", p: "15112011", w: "Năm mới cháu chúc bá sức khỏe dồi dào, hạnh phúc bên già đình và người thương và đỗ nv1 nhé!", avatar: "https://ui-avatars.com/api/?name=Huong&background=d4af37&color=8b0000&size=128", lixi: true },
+            { n: "Hoàng Thị Thu Hương", p: "15112011", w: "Năm mới cháu chúc bá sức khỏe dồi dào, hạnh phúc bên gia đình và người thương và đỗ nv1 nhé!", avatar: "https://ui-avatars.com/api/?name=Huong&background=d4af37&color=8b0000&size=128", lixi: true },
             { n: "Dương Huyền Trang", p: "25022011", w: "Chúc bạn luôn vui vẻ, tràn đầy năng lượng và đạt được mọi mục tiêu!", avatar: "https://ui-avatars.com/api/?name=Trang&background=d4af37&color=8b0000&size=128", lixi: false },
-            { n: "Lương Hoài Vân", p: "21052011", w: "Chúc c Năm mới an khang thịnh vượng, vạn sự như ý, tài lộc đầy nhà, luôn xinh đẹp hạnh phúc bên gia đình và người thương , và đỗ nv1 nhé!", avatar: "https://ui-avatars.com/api/?name=Van&background=d4af37&color=8b0000&size=128", lixi: true },
-            { n: "Lương Bình Minh", p: "04122011", w: "Chúc Azai năm mới an khang thịnh vượng,vạn sự như ý,hạnh phúc bên già đình,người thươnng và đỗ nv1 nhé!", avatar: "https://ui-avatars.com/api/?name=Minh&background=d4af37&color=8b0000&size=128", lixi: false },
+            { n: "Lương Hoài Vân", p: "21052011", w: "Chúc c năm mới an khang thịnh vượng, vạn sự như ý, tài lộc đầy nhà, luôn xinh đẹp hạnh phúc bên gia đình và người thương, và đỗ nv1 nhé!", avatar: "https://ui-avatars.com/api/?name=Van&background=d4af37&color=8b0000&size=128", lixi: true },
+            { n: "Lương Bình Minh", p: "04122011", w: "Chúc Azai năm mới an khang thịnh vượng, vạn sự như ý, hạnh phúc bên gia đình, người thương và đỗ nv1 nhé!", avatar: "https://ui-avatars.com/api/?name=Minh&background=d4af37&color=8b0000&size=128", lixi: false },
             { n: "Hoàng Hải Việt", p: "04012011", w: "Năm mới nhiều niềm vui, an khang thịnh vượng, vạn sự như ý, tài lộc đầy nhà và đỗ nv1 nhé!", avatar: "https://ui-avatars.com/api/?name=Viet&background=d4af37&color=8b0000&size=128", lixi: false },
-            { n: "Vi Trần Bảo", p: "06092011", w: "Chúc bạn luôn khỏe mạnh,an khang thịnh vượng, vạn sự như ý, tài lộc đầy nhà và đỗ nv1 nhé!", avatar: "https://ui-avatars.com/api/?name=Bao&background=d4af37&color=8b0000&size=128", lixi: false },
-            { n: "Lương Việt Anh", p: "03052011", w: "Năm Bính Ngọ tràn đầy năng lượng, Năm mới an khang thịnh vượng, vạn sự như ý, tài lộc đầy nhà và đỗ nv1!", avatar: "https://ui-avatars.com/api/?name=VAnh&background=d4af37&color=8b0000&size=128", lixi: false },
-            { n: "Triệu Đức Hiệp", p: "01122011", w: "Chúc bạn sức khỏe dồi dào,an khang thịnh vượng, vạn sự như ý, tài lộc đầy nhà, gia đạo êm ấm và đỗ nv1!", avatar: "https://ui-avatars.com/api/?name=DHiep&background=d4af37&color=8b0000&size=128", lixi: false },
-            { n: "Nguyễn Anh Đức", p: "09122011", w: "Năm mới chúc lớp trưởng học tập giỏi , an khang thịnh vượng,vạn sự như ý và đỗ nv1 nhé!", avatar: "https://ui-avatars.com/api/?name=Duc&background=d4af37&color=8b0000&size=128", lixi: true },
+            { n: "Vi Trần Bảo", p: "06092011", w: "Chúc bạn luôn khỏe mạnh, an khang thịnh vượng, vạn sự như ý, tài lộc đầy nhà và đỗ nv1 nhé!", avatar: "https://ui-avatars.com/api/?name=Bao&background=d4af37&color=8b0000&size=128", lixi: false },
+            { n: "Lương Việt Anh", p: "03052011", w: "Năm Bính Ngọ tràn đầy năng lượng, năm mới an khang thịnh vượng, vạn sự như ý, tài lộc đầy nhà và đỗ nv1!", avatar: "https://ui-avatars.com/api/?name=VAnh&background=d4af37&color=8b0000&size=128", lixi: false },
+            { n: "Triệu Đức Hiệp", p: "01122011", w: "Chúc bạn sức khỏe dồi dào, an khang thịnh vượng, vạn sự như ý, tài lộc đầy nhà, gia đạo êm ấm và đỗ nv1!", avatar: "https://ui-avatars.com/api/?name=DHiep&background=d4af37&color=8b0000&size=128", lixi: false },
+            { n: "Nguyễn Anh Đức", p: "09122011", w: "Năm mới chúc lớp trưởng học tập giỏi, an khang thịnh vượng, vạn sự như ý và đỗ nv1 nhé!", avatar: "https://ui-avatars.com/api/?name=Duc&background=d4af37&color=8b0000&size=128", lixi: true },
             { n: "La Uyển Nhi", p: "28032011", w: "Chúc bạn luôn xinh đẹp, tươi trẻ và gặp nhiều điều tốt lành!", avatar: "https://ui-avatars.com/api/?name=Nhi&background=d4af37&color=8b0000&size=128", lixi: false },
             { n: "Nông Bảo Ánh", p: "07092011", w: "Năm mới an khang, thịnh vượng, vạn sự hanh thông như ý nguyện!", avatar: "https://ui-avatars.com/api/?name=BAnh&background=d4af37&color=8b0000&size=128", lixi: false }
         ];
@@ -1690,10 +1693,17 @@
                 console.log('=== IP Address INFO ===');
                 console.log('Public IP:', userIP);
                 console.log('Admin IPs:', ADMIN_IPS);
-                console.log('Is Admin:', ADMIN_IPS.includes(userIP));
+                
+                // Normalize IP (trim whitespace) for comparison
+                const normalizedIP = userIP ? userIP.trim() : '';
+                const normalizedAdminIPs = ADMIN_IPS.map(ip => ip.trim());
+                const isAdminIP = normalizedAdminIPs.includes(normalizedIP);
+                
+                console.log('Normalized IP:', normalizedIP);
+                console.log('Is Admin:', isAdminIP);
                 
                 // Check if admin - Only specific IPs in the list
-                if (ADMIN_IPS.includes(userIP)) {
+                if (isAdminIP) {
                     activateAdmin();
                 }
                 
@@ -1793,6 +1803,19 @@
                 icon.innerText = '🚫';
                 document.querySelectorAll('.floating-lantern, .tet-couplet, .golden-coin, .petal').forEach(el => el.remove());
                 showToast('success', '🚫 Đã tắt hiệu ứng (giảm lag)');
+            }
+        }
+
+        function clearIPCache() {
+            if (confirm('Xóa cache IP và tải lại trang?\n\nĐiều này sẽ lấy IP mới từ server.')) {
+                // Clear IP cache
+                localStorage.removeItem('user_public_ip_cache');
+                showToast('success', '✅ Đã xóa cache IP');
+                
+                // Reload page after 1 second
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
             }
         }
 
