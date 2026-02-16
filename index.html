@@ -32,23 +32,6 @@
             color: var(--text-dark);
         }
 
-        body.light-mode .user-card {
-            background: rgba(139, 0, 0, 0.1);
-        }
-
-        body.light-mode .header-top {
-            background: rgba(255, 255, 255, 0.95);
-            color: var(--text-dark);
-        }
-
-        body.light-mode #days {
-            color: var(--red) !important;
-        }
-
-        body.light-mode .admin-letter {
-            background: #fff9c4;
-        }
-
         /* LOADING SCREEN */
         #loading-screen {
             position: fixed;
@@ -60,18 +43,6 @@
             align-items: center;
             justify-content: center;
             transition: opacity 0.5s;
-        }
-
-        .loading-lantern {
-            width: 80px;
-            height: 100px;
-            position: relative;
-            animation: loadingSway 2s ease-in-out infinite;
-        }
-
-        @keyframes loadingSway {
-            0%, 100% { transform: rotate(-15deg); }
-            50% { transform: rotate(15deg); }
         }
 
         .loading-text {
@@ -87,30 +58,10 @@
             50% { opacity: 0.5; }
         }
 
-        .loading-bar {
-            width: 200px;
-            height: 4px;
-            background: rgba(255,255,255,0.2);
-            margin-top: 20px;
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .loading-progress {
-            height: 100%;
-            background: var(--gold);
-            width: 0%;
-            animation: loadProgress 2s ease-in-out forwards;
-        }
-
-        @keyframes loadProgress {
-            to { width: 100%; }
-        }
-
         /* THEME TOGGLE */
         .theme-toggle {
             position: fixed;
-            top: 80px;
+            top: 20px;
             right: 20px;
             z-index: 1001;
             background: rgba(212, 175, 55, 0.2);
@@ -118,63 +69,12 @@
             border-radius: 50px;
             padding: 8px 15px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 1.2rem;
+            color: var(--gold);
             transition: all 0.3s;
-        }
-
-        .theme-toggle:hover {
-            background: rgba(212, 175, 55, 0.4);
-            transform: scale(1.05);
-        }
-
-        /* AUDIO CONTROLS */
-        .audio-toggle {
-            position: fixed;
-            top: 130px;
-            right: 20px;
-            z-index: 1001;
-            background: rgba(212, 175, 55, 0.2);
-            border: 2px solid var(--gold);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            transition: all 0.3s;
-        }
-
-        .audio-toggle:hover {
-            background: rgba(212, 175, 55, 0.4);
-            transform: scale(1.1);
-        }
-
-        /* Lồng đèn */
-        .lantern-svg {
-            position: fixed;
-            top: -10px;
-            width: 65px;
-            z-index: 1000;
-            animation: swing 3s ease-in-out infinite alternate;
-            transform-origin: top center;
-            filter: drop-shadow(0 0 15px red);
-        }
-
-        .lantern-left { left: 10px; }
-        .lantern-right { right: 10px; }
-
-        @keyframes swing {
-            from { transform: rotate(-10deg); }
-            to { transform: rotate(10deg); }
         }
 
         .header-top {
-            padding: 15px;
+            padding: 30px 15px;
             background: rgba(0,0,0,0.85);
             border-bottom: 2px solid var(--gold);
             text-align: center;
@@ -183,235 +83,112 @@
             z-index: 100;
         }
 
-        /* Countdown */
+        /* COUNTDOWN */
         #countdown-container {
             display: flex;
             justify-content: center;
             gap: 15px;
             margin: 20px 0;
-            flex-wrap: wrap;
         }
 
         .countdown-box {
             background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(139,0,0,0.2));
             border: 2px solid var(--gold);
-            border-radius: 15px;
-            padding: 15px;
-            min-width: 70px;
-            text-align: center;
+            border-radius: 10px;
+            padding: 10px;
+            min-width: 60px;
         }
 
         .countdown-number {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: bold;
             color: var(--gold);
-            font-family: 'Dancing Script';
         }
 
-        /* User grid */
-        .user-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            padding: 20px;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        @media (min-width: 768px) {
-            .user-grid {
-                grid-template-columns: repeat(3, 1fr);
-                max-width: 800px;
-            }
-        }
-
-        .user-card {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid var(--gold);
-            padding: 15px;
-            border-radius: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .user-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(212,175,55,0.3);
-        }
-
-        .avatar-container {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 10px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 2px solid var(--gold);
-        }
-
-        .avatar {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Photo section */
+        /* PHOTO & LETTER */
         .photo-section {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            margin: 30px 0;
+            justify-content: center;
+            margin: 40px 0;
         }
 
         .polaroid {
             background: white;
-            padding: 10px 10px 30px 10px;
-            width: 85%;
-            max-width: 350px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            padding: 15px 15px 40px 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             transform: rotate(-2deg);
+            max-width: 90%;
+        }
+
+        .polaroid img {
+            width: 100%;
+            display: block;
         }
 
         .polaroid p {
             color: #333;
             font-family: 'Dancing Script';
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             text-align: center;
-            margin-top: 10px;
+            margin: 15px 0 0 0;
         }
 
         .admin-letter {
             background: #fff9c4;
             color: #333;
-            padding: 25px;
-            margin: 40px 15px;
-            border-radius: 2px;
-            box-shadow: 8px 8px 20px rgba(0,0,0,0.4);
-            transform: rotate(-1deg);
-        }
-
-        @media (min-width: 768px) {
-            .admin-letter {
-                max-width: 600px;
-                margin: 40px auto;
-            }
-        }
-
-        /* TAB SYSTEM */
-        .tabs-container {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin: 30px 20px 10px 20px;
-            flex-wrap: wrap;
-        }
-
-        .tab-button {
-            background: rgba(255,255,255,0.1);
-            border: 2px solid var(--gold);
-            color: var(--gold);
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .tab-button.active {
-            background: var(--gold);
-            color: var(--red);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 600px;
+            border-radius: 5px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+            line-height: 1.6;
         }
     </style>
 </head>
 <body>
     <div id="loading-screen">
-        <div class="loading-lantern">🏮</div>
-        <div class="loading-text">Đang chuẩn bị Tết...</div>
-        <div class="loading-bar"><div class="loading-progress"></div></div>
+        <div class="loading-text">Chúc Mừng Năm Mới 9B...</div>
     </div>
+
+    <button class="theme-toggle" onclick="toggleTheme()">🌓 Đổi màu</button>
 
     <div class="header-top">
-        <h1 style="font-family: 'Dancing Script'; color: var(--gold); margin: 0;">Chúc Mừng Năm Mới 2026</h1>
+        <h1 style="font-family: 'Dancing Script'; color: var(--gold); margin: 0; font-size: 2.5rem;">Xuân Bính Ngọ 2026</h1>
         <div id="countdown-container">
-            <div class="countdown-box"><div id="days" class="countdown-number">00</div><div class="countdown-label">Ngày</div></div>
-            <div class="countdown-box"><div id="hours" class="countdown-number">00</div><div class="countdown-label">Giờ</div></div>
-            <div class="countdown-box"><div id="minutes" class="countdown-number">00</div><div class="countdown-label">Phút</div></div>
-            <div class="countdown-box"><div id="seconds" class="countdown-number">00</div><div class="countdown-label">Giây</div></div>
+            <div class="countdown-box"><div id="days" class="countdown-number">00</div><div>Ngày</div></div>
+            <div class="countdown-box"><div id="hours" class="countdown-number">00</div><div>Giờ</div></div>
+            <div class="countdown-box"><div id="minutes" class="countdown-number">00</div><div>Phút</div></div>
+            <div class="countdown-box"><div id="seconds" class="countdown-number">00</div><div>Giây</div></div>
         </div>
     </div>
 
-    <div class="tabs-container">
-        <button class="tab-button active" onclick="openTab('memories')">Kỷ Niệm</button>
-        <button class="tab-button" onclick="openTab('members')">Thành Viên</button>
-    </div>
-
-    <div id="memories" class="tab-content active">
-        <div class="photo-section">
-            <div class="polaroid">
-                <img src="https://via.placeholder.com/350x250" alt="Kỷ niệm">
-                <p>9B - Những ngày rực rỡ ✨</p>
-            </div>
-        </div>
-        
-        <div class="admin-letter">
-            <h2 style="font-family: 'Dancing Script'; margin-top: 0;">Gửi tập thể lớp 9B...</h2>
-            <p>Chúc các bạn một năm mới Bính Ngọ 2026 thật nhiều niềm vui, sức khỏe và đạt được mọi ước nguyện trong kỳ thi sắp tới.</p>
+    <div class="photo-section">
+        <div class="polaroid">
+            <img src="https://via.placeholder.com/600x400" alt="Kỷ niệm lớp">
+            <p>Tập thể 9B mãi đỉnh!</p>
         </div>
     </div>
 
-    <div id="members" class="tab-content">
-        <div class="user-grid">
-            <div class="user-card">
-                <div class="avatar-container"><img src="https://via.placeholder.com/60" class="avatar"></div>
-                <div class="user-name">Bạn A</div>
-            </div>
-            <div class="user-card">
-                <div class="avatar-container"><img src="https://via.placeholder.com/60" class="avatar"></div>
-                <div class="user-name">Bạn B</div>
-            </div>
-        </div>
+    <div class="admin-letter">
+        <h2 style="font-family: 'Dancing Script'; color: #8b0000; margin-top: 0;">Gửi lời chúc Tết...</h2>
+        <p>Chúc tất cả các bạn một năm mới tràn đầy niềm vui, học tập tốt và thành công rực rỡ trong những mục tiêu sắp tới của năm 2026!</p>
     </div>
-
-    <button class="theme-toggle" onclick="toggleTheme()">🌓 Chế độ sáng/tối</button>
 
     <script>
-        // HIDE LOADING SCREEN
+        // Tắt loading
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('loading-screen').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('loading-screen').style.display = 'none';
-                }, 500);
-            }, 2000);
+                setTimeout(() => { document.getElementById('loading-screen').style.display = 'none'; }, 500);
+            }, 1500);
         });
 
-        // THEME TOGGLE
+        // Theme toggle
         function toggleTheme() {
             document.body.classList.toggle('light-mode');
         }
 
-        // TAB SYSTEM
-        function openTab(tabName) {
-            const contents = document.getElementsByClassName('tab-content');
-            const buttons = document.getElementsByClassName('tab-button');
-            
-            for (let content of contents) content.classList.remove('active');
-            for (let button of buttons) button.classList.remove('active');
-            
-            document.getElementById(tabName).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
-
-        // COUNTDOWN logic
+        // Countdown
         function updateCountdown() {
             const tetDate = new Date('January 29, 2026 00:00:00').getTime();
             const now = new Date().getTime();
@@ -426,6 +203,16 @@
         }
         setInterval(updateCountdown, 1000);
         updateCountdown();
+
+        // Hiệu ứng pháo hoa nhẹ khi vào trang
+        window.addEventListener('load', () => {
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#d4af37', '#8b0000', '#ffffff']
+            });
+        });
     </script>
 </body>
 </html>
