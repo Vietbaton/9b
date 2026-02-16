@@ -1952,13 +1952,8 @@
                         // SUCCESS
                         document.getElementById('password-modal').style.display = 'none';
                         
-                        // Check if user has lixi - show animation
-                        if (selected.lixi) {
-                            showLixiAnimation();
-                        } else {
-                            // No lixi - show wish directly
-                            showWishScreen();
-                        }
+                        // Show wish directly (lixi feature removed)
+                        showWishScreen();
                     } else {
                         // ERROR
                         showToast('error', 'Sai mã rồi! 😢');
@@ -1980,100 +1975,6 @@
             });
         });
 
-        // ========== LIXI ANIMATION FUNCTIONS ==========
-        
-        let lixiAmount = 0;
-        
-        function showLixiAnimation() {
-            // Check if this person already claimed lixi (by name, not IP)
-            const claimedKey = 'lixi_claimed_name_' + selected.n.replace(/\s+/g, '_');
-            const alreadyClaimed = localStorage.getItem(claimedKey);
-            
-            if (alreadyClaimed) {
-                const claimedData = JSON.parse(alreadyClaimed);
-                showToast('error', `${selected.n} đã nhận ${claimedData.amount.toLocaleString('vi-VN')}₫ rồi! Mỗi người chỉ nhận 1 lần. 😊`);
-                // Still show wish screen
-                setTimeout(() => {
-                    showWishScreen();
-                }, 2000);
-                return;
-            }
-            
-            // Generate random lixi amount (20k - 100k)
-            const amounts = [20000, 30000, 50000, 70000, 100000];
-            lixiAmount = amounts[Math.floor(Math.random() * amounts.length)];
-            
-            // Show lixi modal
-            document.getElementById('lixi-animation-modal').style.display = 'flex';
-            
-            // Play shake sound if audio enabled
-            if (audioEnabled) {
-                const audio = document.getElementById('audio');
-                audio.volume = 0.3;
-            }
-        }
-        
-        function openLixiEnvelope() {
-            const envelope = document.getElementById('lixiEnvelope');
-            const amountDiv = document.getElementById('lixiAmount');
-            const sparklesContainer = document.getElementById('lixiSparkles');
-            
-            // Save claimed status by name (not IP)
-            const claimedKey = 'lixi_claimed_name_' + selected.n.replace(/\s+/g, '_');
-            localStorage.setItem(claimedKey, JSON.stringify({
-                name: selected.n,
-                amount: lixiAmount,
-                timestamp: Date.now(),
-                ip: userIP
-            }));
-            
-            // Add opening animation
-            envelope.classList.add('lixi-opening');
-            
-            // Create money rain
-            setTimeout(() => {
-                for (let i = 0; i < 15; i++) {
-                    const money = document.createElement('div');
-                    money.className = 'lixi-money-rain';
-                    money.innerText = '💰';
-                    money.style.left = Math.random() * 100 + '%';
-                    money.style.animationDelay = (Math.random() * 0.5) + 's';
-                    sparklesContainer.appendChild(money);
-                }
-            }, 300);
-            
-            // Show amount
-            setTimeout(() => {
-                amountDiv.style.display = 'block';
-                amountDiv.innerText = lixiAmount.toLocaleString('vi-VN') + '₫';
-                
-                // Confetti explosion
-                confetti({
-                    particleCount: 200,
-                    spread: 100,
-                    origin: { y: 0.5 },
-                    colors: ['#ff0000', '#d4af37', '#ffd700', '#ff1493']
-                });
-                
-                // Play firework sound
-                if (audioEnabled) {
-                    document.getElementById('fireworkSound').play().catch(e => console.log(e));
-                }
-            }, 1000);
-            
-            // Close and show wish screen
-            setTimeout(() => {
-                document.getElementById('lixi-animation-modal').style.display = 'none';
-                
-                // Reset for next time
-                envelope.classList.remove('lixi-opening');
-                amountDiv.style.display = 'none';
-                sparklesContainer.innerHTML = '';
-                
-                // Show wish screen
-                showWishScreen();
-            }, 3500);
-        }
         
         function showWishScreen() {
             document.getElementById('selection-screen').style.display = 'none';
