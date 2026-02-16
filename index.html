@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9B  2026 - Ultimate Edition ✨</title>
+    <title>9B - Xuân Bính Ngọ 2026 - Ultimate Edition ✨</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
@@ -632,34 +632,6 @@
         }
 
         /* Location badge */
-        .location-badge {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(212, 175, 55, 0.25);
-            border: 2px solid var(--gold);
-            border-radius: 25px;
-            padding: 10px 15px;
-            font-size: 0.8rem;
-            z-index: 1001;
-            display: none;
-            align-items: center;
-            gap: 8px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            max-width: 350px;
-            flex-wrap: wrap;
-        }
-
-        .location-badge span {
-            white-space: nowrap;
-        }
-
-        #ipText {
-            color: rgba(212, 175, 55, 0.9);
-            font-family: monospace;
-            font-weight: 600;
-        }
 
         /* TAB SYSTEM */
         .tabs-container {
@@ -1087,26 +1059,6 @@
 </head>
 <body onmousemove="sparkle(event)" ontouchmove="sparkle(event.touches[0])">
 
-    <!-- LOCATION PERMISSION MODAL -->
-    <div id="location-permission-modal" style="display: flex; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 100000; align-items: center; justify-content: center; padding: 20px;">
-        <div style="background: linear-gradient(135deg, rgba(139,0,0,0.95), rgba(43,0,0,0.98)); border: 3px solid var(--gold); border-radius: 20px; padding: 40px; max-width: 450px; text-align: center; box-shadow: 0 20px 60px rgba(212,175,55,0.6);">
-            <div style="font-size: 4rem; margin-bottom: 20px;">📍</div>
-            <h2 style="color: var(--gold); font-family: 'Dancing Script'; font-size: 2rem; margin: 0 0 15px 0;">Cho phép truy cập vị trí</h2>
-            <p style="color: var(--text-light); margin-bottom: 25px; line-height: 1.6;">
-                Website cần quyền truy cập vị trí của bạn để hiển thị nội dung. Vui lòng cho phép truy cập để tiếp tục.
-            </p>
-            <div style="background: rgba(212,175,55,0.1); border-left: 4px solid var(--gold); padding: 15px; margin-bottom: 25px; text-align: left; border-radius: 8px;">
-                <p style="margin: 0; font-size: 0.9rem; color: var(--text-light);">
-                    ℹ️ Thông tin vị trí của bạn được sử dụng để cải thiện trải nghiệm và không được chia sẻ với bên thứ ba.
-                </p>
-            </div>
-            <button id="allow-location-btn" style="background: var(--gold); color: var(--red); border: none; padding: 15px 40px; border-radius: 25px; cursor: pointer; font-weight: bold; font-size: 1.1rem; width: 100%; transition: all 0.3s; box-shadow: 0 5px 15px rgba(212,175,55,0.3);">
-                ✅ Cho phép truy cập
-            </button>
-            <p id="location-error" style="color: #ff6b6b; margin-top: 15px; display: none; font-size: 0.9rem;"></p>
-        </div>
-    </div>
-
     <!-- LOADING SCREEN -->
     <div id="loading-screen" style="display: none;">
         <svg class="loading-lantern" viewBox="0 0 100 120">
@@ -1199,12 +1151,6 @@
         <span id="effectsIcon">✨</span>
     </div>
 
-    <!-- LOCATION BADGE -->
-    <div class="location-badge" id="locationBadge">
-        <span>📍</span>
-        <span id="locationText">Đang lấy vị trí...</span>
-        <span style="margin-left: 8px; opacity: 0.7; font-size: 0.75rem;" id="ipText"></span>
-    </div>
 
     <!-- TOAST -->
     <div class="toast error" id="errorToast">
@@ -1240,7 +1186,7 @@
         </div>
 
         <h1 style="font-family: 'Dancing Script'; text-align: center; color: var(--gold); font-size: 2.8rem; margin: 20px 0 0 0;">Xuân Bính Ngọ 2026</h1>
-        <p style="text-align: center; font-size: 0.75rem; letter-spacing: 2px; opacity: 0.8;">LỚP 9B</p>
+        <p style="text-align: center; font-size: 0.75rem; letter-spacing: 2px; opacity: 0.8;">LỚP 9B NIÊN KHÓA 2011</p>
 
         <!-- TABS -->
         <div class="tabs-container" style="display: none;">
@@ -1287,7 +1233,7 @@
         <div class="admin-letter">
             <h3 style="margin:0; color: var(--red);">Gửi 9B thân yêu...</h3>
             <p>Nhân dịp năm mới, chúc tập thể lớp chúng ta một năm tràn đầy sức khỏe, học tập ngày càng tốt, đạt nhiều thành tích cao và luôn gắn bó, yêu thương nhau. Chúc thầy cô và các bạn một năm mới an khang – thịnh vượng – vạn sự như ý.</p>
-            <p style="text-align: right; font-family: 'Dancing Script'; font-size: 1.2rem; color: var(--red);">Hoàng Hữu Việt</p>
+            <p style="text-align: right; font-family: 'Dancing Script'; font-size: 1.2rem; color: var(--red);">Admin Việt</p>
         </div>
     </div>
 
@@ -1325,35 +1271,6 @@
         🔧
     </div>
 
-    <!-- ADMIN PANEL (Hidden by default) -->
-    <div id="admin-panel" style="display: none; position: fixed; top: 80px; right: 20px; background: rgba(139,0,0,0.95); border: 3px solid var(--gold); border-radius: 15px; padding: 20px; z-index: 10000; max-width: 350px; backdrop-filter: blur(10px); max-height: 80vh; overflow-y: auto;">
-        <h3 style="color: var(--gold); margin: 0 0 15px 0; font-family: 'Dancing Script'; font-size: 1.5rem;">🔧 Admin Panel</h3>
-        <div style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 15px;">
-            <p style="margin: 5px 0;">IP: <strong id="admin-ip-display" style="color: var(--gold);"></strong></p>
-            <p style="margin: 5px 0;">Quyền: <strong style="color: #4CAF50;">Admin</strong></p>
-        </div>
-        
-        <div style="border-top: 1px solid rgba(212,175,55,0.3); padding-top: 15px; margin-bottom: 15px;">
-            <h4 style="color: var(--gold); font-size: 1rem; margin: 0 0 10px 0;">🎨 Hiệu ứng</h4>
-            <button onclick="toggleEffects()" style="background: var(--gold); color: var(--red); border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; width: 100%; margin-bottom: 10px; font-weight: bold;">
-                <span id="effects-status">Tắt hiệu ứng</span>
-            </button>
-        </div>
-
-        <div style="border-top: 1px solid rgba(212,175,55,0.3); padding-top: 15px; margin-bottom: 15px;">
-            <h4 style="color: var(--gold); font-size: 1rem; margin: 0 0 10px 0;">⚙️ Khác</h4>
-            <button onclick="clearIPCache()" style="background: linear-gradient(135deg, #FF9800, #F57C00); color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; width: 100%; margin-bottom: 10px; font-weight: bold;">
-                🔄 Làm mới IP
-            </button>
-            <button onclick="exportData()" style="background: linear-gradient(135deg, #2196F3, #1976D2); color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; width: 100%; margin-bottom: 10px; font-weight: bold;">
-                📥 Xuất dữ liệu
-            </button>
-        </div>
-
-        <button onclick="closeAdminPanel()" style="background: rgba(255,255,255,0.1); color: var(--text-light); border: 1px solid var(--gold); padding: 8px 15px; border-radius: 10px; cursor: pointer; width: 100%; font-size: 0.85rem;">
-            ✕ Đóng
-        </button>
-    </div>
 
 
     <script>
@@ -1434,118 +1351,6 @@
             setTimeout(() => ripple.remove(), 600);
         });
 
-        // ========== LOCATION PERMISSION HANDLING ==========
-        
-        async function rBjburZtFZPp6K3TAGbc862rMQ4vbLZuQ() {
-            const modal = document.getElementById('location-permission-modal');
-            const errorText = document.getElementById('location-error');
-            const loadingScreen = document.getElementById('loading-screen');
-            
-            if (!navigator.geolocation) {
-                errorText.textContent = '❌ Trình duyệt của bạn không hỗ trợ định vị.';
-                errorText.style.display = 'block';
-                
-                // Save browser flag to skip modal next time
-                localStorage.setItem('location_granted_browser', 'true');
-                
-                // Allow access anyway after 2 seconds
-                setTimeout(() => {
-                    modal.style.display = 'none';
-                    loadingScreen.style.display = 'flex';
-                    initializePage();
-                }, 2000);
-                return;
-            }
-            
-            try {
-                // Request geolocation permission
-                navigator.geolocation.getCurrentPosition(
-                    // Success callback
-                    async (position) => {
-                        userLocation = {
-                            latitude: position.coords.latitude,
-                            longitude: position.coords.longitude
-                        };
-                        console.log('Location granted:', userLocation);
-                        
-                        // Get IP first to save permission
-                        if (!userIP) {
-                            await getUserIP();
-                        }
-                        
-                        // Save location permission granted for this IP
-                        localStorage.setItem('location_granted_' + userIP, JSON.stringify({
-                            granted: true,
-                            timestamp: Date.now(),
-                            location: userLocation
-                        }));
-                        
-                        // Also save a general browser flag
-                        localStorage.setItem('location_granted_browser', 'true');
-                        
-                        console.log('✅ Location permission saved for IP:', userIP);
-                        
-                        // Hide location modal, show loading screen
-                        modal.style.display = 'none';
-                        loadingScreen.style.display = 'flex';
-                        
-                        // Initialize page
-                        initializePage();
-                    },
-                    // Error callback
-                    (error) => {
-                        console.error('Location error:', error);
-                        let errorMessage = '';
-                        
-                        switch(error.code) {
-                            case error.PERMISSION_DENIED:
-                                errorMessage = '❌ Bạn đã từ chối quyền truy cập vị trí. Vui lòng cho phép trong cài đặt trình duyệt.';
-                                break;
-                            case error.POSITION_UNAVAILABLE:
-                                errorMessage = '⚠️ Không thể xác định vị trí. Đang tiếp tục...';
-                                break;
-                            case error.TIMEOUT:
-                                errorMessage = '⏱️ Hết thời gian chờ. Đang tiếp tục...';
-                                break;
-                            default:
-                                errorMessage = '⚠️ Có lỗi xảy ra. Đang tiếp tục...';
-                        }
-                        
-                        errorText.textContent = errorMessage;
-                        errorText.style.display = 'block';
-                        
-                        // Save browser flag to skip modal next time (even if location denied)
-                        localStorage.setItem('location_granted_browser', 'true');
-                        
-                        // Allow access anyway after 3 seconds
-                        setTimeout(() => {
-                            modal.style.display = 'none';
-                            loadingScreen.style.display = 'flex';
-                            initializePage();
-                        }, 3000);
-                    },
-                    // Options
-                    {
-                        enableHighAccuracy: true,
-                        timeout: 10000,
-                        maximumAge: 0
-                    }
-                );
-            } catch (error) {
-                console.error('Geolocation error:', error);
-                errorText.textContent = '⚠️ Có lỗi xảy ra. Đang tiếp tục...';
-                errorText.style.display = 'block';
-                
-                // Save browser flag to skip modal next time
-                localStorage.setItem('location_granted_browser', 'true');
-                
-                setTimeout(() => {
-                    modal.style.display = 'none';
-                    loadingScreen.style.display = 'flex';
-                    initializePage();
-                }, 2000);
-            }
-        }
         
         function initializePage() {
             // Get user IP and continue with normal initialization
@@ -1566,21 +1371,6 @@
                 audioEnabled = false;
             });
             
-            // Display location info if available
-            if (userLocation) {
-                fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${userLocation.latitude}&longitude=${userLocation.longitude}&localityLanguage=vi`)
-                    .then(res => res.json())
-                    .then(data => {
-                        const city = data.city || data.locality || data.principalSubdivision || 'Việt Nam';
-                        document.getElementById('locationText').innerText = city;
-                        document.getElementById('locationBadge').style.display = 'flex';
-                    })
-                    .catch(() => {
-                        document.getElementById('locationText').innerText = 'Vị trí';
-                        document.getElementById('locationBadge').style.display = 'flex';
-                    });
-            }
-            
             // Continue with existing initialization
             setTimeout(() => {
                 document.getElementById('loading-screen').style.opacity = '0';
@@ -1590,9 +1380,6 @@
                 }, 500);
             }, 2000);
         }
-        
-        // Attach event listener to location button
-        document.getElementById('allow-location-btn').addEventListener('click', rBjburZtFZPp6K3TAGbc862rMQ4vbLZuQ);
 
         // LIXI GAME FUNCTIONS WITH IP TRACKING
         let shakeCount = 0;
@@ -1691,20 +1478,6 @@
                 
                 console.log('=== IP Address INFO ===');
                 console.log('Public IP:', userIP);
-                console.log('Admin IPs:', ADMIN_IPS);
-                
-                // Normalize IP (trim whitespace) for comparison
-                const normalizedIP = userIP ? userIP.trim() : '';
-                const normalizedAdminIPs = ADMIN_IPS.map(ip => ip.trim());
-                const isAdminIP = normalizedAdminIPs.includes(normalizedIP);
-                
-                console.log('Normalized IP:', normalizedIP);
-                console.log('Is Admin:', isAdminIP);
-                
-                // Check if admin - Only specific IPs in the list
-                if (isAdminIP) {
-                    activateAdmin();
-                }
                 
                 // Check if location permission already granted for this user
                 const locationGranted = localStorage.getItem('location_granted_' + userIP);
@@ -1737,57 +1510,7 @@
             }
         }
 
-        function activateAdmin() {
-            isAdmin = true;
-            document.getElementById('admin-panel').style.display = 'block';
-            document.getElementById('admin-ip-display').innerText = userIP;
-            console.log('🔧 Admin mode activated');
-            showToast('success', '🔧 Admin mode ON');
-        }
 
-        function showIPDebug() {
-            const message = `
-                IP hiện tại: ${userIP || 'Đang lấy...'}
-                
-                Admin IPs: ${ADMIN_IPS.join(', ')}
-                
-                Trạng thái: ${isAdmin ? 'ADMIN ✅' : 'User thường'}
-                
-                ${!isAdmin ? '⚠️ Chỉ có IP admin mới có quyền truy cập' : ''}
-            `;
-            
-            const modal = document.createElement('div');
-            modal.style.cssText = 'position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 100000; display: flex; align-items: center; justify-content: center; padding: 20px;';
-            modal.innerHTML = `
-                <div style="background: linear-gradient(135deg, rgba(139,0,0,0.95), rgba(43,0,0,0.95)); border: 3px solid var(--gold); border-radius: 20px; padding: 30px; max-width: 400px; text-align: center;">
-                    <h3 style="color: var(--gold); margin: 0 0 20px 0; font-family: 'Dancing Script'; font-size: 2rem;">🔧 IP Debug</h3>
-                    <pre style="color: var(--text-light); text-align: left; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; font-size: 0.85rem; white-space: pre-wrap;">${message}</pre>
-                    <button onclick="this.closest('div').parentElement.remove()" style="background: rgba(255,255,255,0.1); color: var(--text-light); border: 1px solid var(--gold); padding: 10px 20px; border-radius: 10px; cursor: pointer; width: 100%;">Đóng</button>
-                </div>
-            `;
-            document.body.appendChild(modal);
-        }
-
-        // ========== ADMIN FUNCTIONS ==========
-        
-        function closeAdminPanel() {
-            document.getElementById('admin-panel').style.display = 'none';
-        }
-
-        function toggleEffects() {
-            effectsEnabled = !effectsEnabled;
-            const statusText = document.getElementById('effects-status');
-            
-            if (effectsEnabled) {
-                statusText.innerText = 'Tắt hiệu ứng';
-                setTimeout(initTetEffects, 100);
-                showToast('success', '✅ Đã bật hiệu ứng');
-            } else {
-                statusText.innerText = 'Bật hiệu ứng';
-                document.querySelectorAll('.floating-lantern, .tet-couplet, .golden-coin, .petal').forEach(el => el.remove());
-                showToast('success', '✅ Đã tắt hiệu ứng');
-            }
-        }
 
         // PUBLIC EFFECTS TOGGLE (for everyone)
         function toggleEffectsPublic() {
@@ -1803,63 +1526,6 @@
                 document.querySelectorAll('.floating-lantern, .tet-couplet, .golden-coin, .petal').forEach(el => el.remove());
                 showToast('success', '🚫 Đã tắt hiệu ứng (giảm lag)');
             }
-        }
-
-        function clearIPCache() {
-            if (confirm('Xóa cache IP và tải lại trang?\n\nĐiều này sẽ lấy IP mới từ server.')) {
-                // Clear IP cache
-                localStorage.removeItem('user_public_ip_cache');
-                showToast('success', '✅ Đã xóa cache IP');
-                
-                // Reload page after 1 second
-                setTimeout(() => {
-                    location.reload();
-                }, 1000);
-            }
-        }
-
-
-
-
-        function exportData() {
-            const data = {
-                exported: new Date().toISOString(),
-                adminIP: userIP,
-                message: 'Data export từ website Tết 9B'
-            };
-            
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `9b-data-${new Date().toISOString().split('T')[0]}.json`;
-            a.click();
-            URL.revokeObjectURL(url);
-            
-            showToast('success', '📥 Đã tải xuống dữ liệu');
-        }
-
-
-        // Request location permission
-        function requestLocation() {
-            return new Promise((resolve, reject) => {
-                if ('geolocation' in navigator) {
-                    navigator.geolocation.getCurrentPosition(
-                        (position) => {
-                            userLocation = {
-                                lat: position.coords.latitude,
-                                lng: position.coords.longitude
-                            };
-                            resolve(userLocation);
-                        },
-                        (error) => {
-                            reject(error);
-                        }
-                    );
-                } else {
-                    reject(new Error('Geolocation not supported'));
-                }
-            });
         }
 
         // INTERACTIVE FIREWORKS
@@ -1901,29 +1567,9 @@
             // Get IP first
             await getUserIP();
             
-            // Check if location permission already granted for this IP or browser
-            const locationGrantedIP = localStorage.getItem('location_granted_' + userIP);
-            const locationGrantedBrowser = localStorage.getItem('location_granted_browser');
-            
-            if ((locationGrantedIP || locationGrantedBrowser) && !userIP.startsWith('blocked_') && !userIP.startsWith('unknown_')) {
-                // Skip location modal, go straight to loading
-                console.log('✅ Skipping location modal - already granted');
-                
-                // Restore location from localStorage if available
-                if (locationGrantedIP) {
-                    try {
-                        const data = JSON.parse(locationGrantedIP);
-                        userLocation = data.location;
-                    } catch(e) {}
-                }
-                
-                document.getElementById('location-permission-modal').style.display = 'none';
-                document.getElementById('loading-screen').style.display = 'flex';
-                initializePage();
-            } else {
-                // Show location permission modal (default behavior)
-                console.log('📍 Showing location permission modal');
-            }
+            // Go straight to loading screen and initialize
+            document.getElementById('loading-screen').style.display = 'flex';
+            initializePage();
         });
 
         // CLOSE GUIDE
